@@ -1,0 +1,3 @@
+[submodule "delta-kernel-rs"]
+	path = delta-kernel-rs
+	url = git@github.com:delta-incubator/delta-kernel-rs.git

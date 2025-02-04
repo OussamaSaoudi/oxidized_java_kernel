@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="release">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/delta-kernel-rs/target/release" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>
