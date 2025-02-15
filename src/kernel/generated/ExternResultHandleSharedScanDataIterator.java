@@ -39,11 +39,11 @@ public class ExternResultHandleSharedScanDataIterator {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("ok")
-            ).withName("$anon$1145:5"),
+            ).withName("$anon$1147:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$1148:5")
-        ).withName("$anon$1144:3")
+            ).withName("$anon$1150:5")
+        ).withName("$anon$1146:3")
     ).withName("ExternResultHandleSharedScanDataIterator");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultHandleSharedScanDataIterator {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1144:3"), groupElement("$anon$1145:5"), groupElement("ok"));
+    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1146:3"), groupElement("$anon$1147:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultHandleSharedScanDataIterator {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1144:3"), groupElement("$anon$1148:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1146:3"), groupElement("$anon$1150:5"), groupElement("err"));
 
     /**
      * Layout for field:

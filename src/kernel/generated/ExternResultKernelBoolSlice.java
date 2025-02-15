@@ -39,11 +39,11 @@ public class ExternResultKernelBoolSlice {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 KernelBoolSlice.layout().withName("ok")
-            ).withName("$anon$1166:5"),
+            ).withName("$anon$1168:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$1169:5")
-        ).withName("$anon$1165:3")
+            ).withName("$anon$1171:5")
+        ).withName("$anon$1167:3")
     ).withName("ExternResultKernelBoolSlice");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultKernelBoolSlice {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final GroupLayout ok$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$1165:3"), groupElement("$anon$1166:5"), groupElement("ok"));
+    private static final GroupLayout ok$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$1167:3"), groupElement("$anon$1168:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultKernelBoolSlice {
         MemorySegment.copy(fieldValue, 0L, struct, ok$OFFSET, ok$LAYOUT.byteSize());
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1165:3"), groupElement("$anon$1169:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1167:3"), groupElement("$anon$1171:5"), groupElement("err"));
 
     /**
      * Layout for field:

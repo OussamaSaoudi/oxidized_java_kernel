@@ -28,7 +28,7 @@ public class delta_kernel_ffi_h {
          System.out.printf("%s(%s)\n", name, traceArgs);
     }
 
-    static MemorySegment findOrThrow(String symbol) {
+    public static MemorySegment findOrThrow(String symbol) {
         return SYMBOL_LOOKUP.find(symbol)
             .orElseThrow(() -> new UnsatisfiedLinkError("unresolved symbol: " + symbol));
     }
@@ -3588,7 +3588,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice))
+     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *))
      * }
      */
     public static FunctionDescriptor kernel_scan_data_next$descriptor() {
@@ -3598,7 +3598,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice))
+     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *))
      * }
      */
     public static MethodHandle kernel_scan_data_next$handle() {
@@ -3608,7 +3608,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice))
+     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *))
      * }
      */
     public static MemorySegment kernel_scan_data_next$address() {
@@ -3617,7 +3617,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice))
+     * struct ExternResultbool kernel_scan_data_next(HandleSharedScanDataIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *))
      * }
      */
     public static MemorySegment kernel_scan_data_next(SegmentAllocator allocator, MemorySegment data, MemorySegment engine_context, MemorySegment engine_visitor) {
@@ -3874,6 +3874,7 @@ public class delta_kernel_ffi_h {
             delta_kernel_ffi_h.C_POINTER,
             KernelBoolSlice.layout(),
             delta_kernel_ffi_h.C_POINTER,
+            delta_kernel_ffi_h.C_POINTER,
             delta_kernel_ffi_h.C_POINTER
         );
 
@@ -3885,7 +3886,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, NullableCvoid engine_context, CScanCallback callback)
+     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, const struct CTransforms *transforms, NullableCvoid engine_context, CScanCallback callback)
      * }
      */
     public static FunctionDescriptor visit_scan_data$descriptor() {
@@ -3895,7 +3896,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, NullableCvoid engine_context, CScanCallback callback)
+     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, const struct CTransforms *transforms, NullableCvoid engine_context, CScanCallback callback)
      * }
      */
     public static MethodHandle visit_scan_data$handle() {
@@ -3905,7 +3906,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, NullableCvoid engine_context, CScanCallback callback)
+     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, const struct CTransforms *transforms, NullableCvoid engine_context, CScanCallback callback)
      * }
      */
     public static MemorySegment visit_scan_data$address() {
@@ -3914,16 +3915,16 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, NullableCvoid engine_context, CScanCallback callback)
+     * void visit_scan_data(HandleExclusiveEngineData data, struct KernelBoolSlice selection_vec, const struct CTransforms *transforms, NullableCvoid engine_context, CScanCallback callback)
      * }
      */
-    public static void visit_scan_data(MemorySegment data, MemorySegment selection_vec, MemorySegment engine_context, MemorySegment callback) {
+    public static void visit_scan_data(MemorySegment data, MemorySegment selection_vec, MemorySegment transforms, MemorySegment engine_context, MemorySegment callback) {
         var mh$ = visit_scan_data.HANDLE;
         try {
             if (TRACE_DOWNCALLS) {
-                traceDowncall("visit_scan_data", data, selection_vec, engine_context, callback);
+                traceDowncall("visit_scan_data", data, selection_vec, transforms, engine_context, callback);
             }
-            mh$.invokeExact(data, selection_vec, engine_context, callback);
+            mh$.invokeExact(data, selection_vec, transforms, engine_context, callback);
         } catch (Throwable ex$) {
            throw new AssertionError("should not reach here", ex$);
         }

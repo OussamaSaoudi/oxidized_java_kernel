@@ -86,10 +86,10 @@ public class Main {
                 var err = ExternResultEngineBuilder.err(builderRes);
                 throw new RuntimeException("got error");
             }
-            var sharedExternEngine = ExternResultHandleSharedExternEngine.ok(sharedExternEngineRes);
+            var engine = ExternResultHandleSharedExternEngine.ok(sharedExternEngineRes);
 
             System.out.println("Getting Snapshot");
-            var snapshotRes = snapshot(arena, path, sharedExternEngine);
+            var snapshotRes = snapshot(arena, path, engine);
 
             tag = ExternResultHandleSharedSnapshot.tag(snapshotRes);
             System.out.println("snapshot tag: " + tag);
@@ -110,11 +110,31 @@ public class Main {
             var predicate = EnginePredicate.allocate(arena);
             var visitor = EnginePredicate.visitor.allocate(new PredicateVisitor(), arena);
             EnginePredicate.visitor(predicate, visitor);
-            var scanRes = scan(arena, snapshot, sharedExternEngine, predicate);
+            var scanRes = scan(arena, snapshot, engine, predicate);
             if (ExternResultHandleSharedScan.tag(scanRes) == ErrHandleSharedScan()) {
                 throw new RuntimeException("Failed to create scan");
             }
             var scan = ExternResultHandleSharedScan.ok(scanRes);
+
+            var data_iter_res = kernel_scan_data_init(arena, engine, scan);
+            if (ExternResultHandleSharedScanDataIterator.tag(data_iter_res) == ErrHandleSharedScanDataIterator()) {
+                throw new RuntimeException("Failed to create scan data iterator");
+            }
+            var data_iter = ExternResultHandleSharedScanDataIterator.ok(data_iter_res);
+
+            EngineContext context = new EngineContext(arena, scan, engine, tableRoot);
+
+            var visit_scan_data_callback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena), arena);
+            // iterate scan files
+            for (;;) {
+                MemorySegment ok_res = kernel_scan_data_next(arena, data_iter, context.segment(), visit_scan_data_callback);
+                if (ExternResultbool.tag(ok_res)!= Okbool()) {
+                    throw new RuntimeException("Failed to get next");
+                } else if (!ExternResultbool.ok(ok_res)) {
+                    System.out.println("Scan data iterator done\n");
+                    break;
+                }
+            }
 
 
         }

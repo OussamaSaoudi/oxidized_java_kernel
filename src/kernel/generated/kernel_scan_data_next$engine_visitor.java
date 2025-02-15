@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice)
+ * void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *)
  * }
  */
 public class kernel_scan_data_next$engine_visitor {
@@ -27,13 +27,14 @@ public class kernel_scan_data_next$engine_visitor {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        void apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        void apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
         delta_kernel_ffi_h.C_POINTER,
         delta_kernel_ffi_h.C_POINTER,
-        KernelBoolSlice.layout()
+        KernelBoolSlice.layout(),
+        delta_kernel_ffi_h.C_POINTER
     );
 
     /**
@@ -58,9 +59,9 @@ public class kernel_scan_data_next$engine_visitor {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static void invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+    public static void invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, MemorySegment _x3) {
         try {
-             DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+             DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

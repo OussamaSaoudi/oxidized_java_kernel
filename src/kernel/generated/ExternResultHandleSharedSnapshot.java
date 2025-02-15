@@ -39,11 +39,11 @@ public class ExternResultHandleSharedSnapshot {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("ok")
-            ).withName("$anon$381:5"),
+            ).withName("$anon$383:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$384:5")
-        ).withName("$anon$380:3")
+            ).withName("$anon$386:5")
+        ).withName("$anon$382:3")
     ).withName("ExternResultHandleSharedSnapshot");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultHandleSharedSnapshot {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$380:3"), groupElement("$anon$381:5"), groupElement("ok"));
+    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$382:3"), groupElement("$anon$383:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultHandleSharedSnapshot {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$380:3"), groupElement("$anon$384:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$382:3"), groupElement("$anon$386:5"), groupElement("err"));
 
     /**
      * Layout for field:

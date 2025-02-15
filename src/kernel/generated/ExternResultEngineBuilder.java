@@ -24,7 +24,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *             struct EngineError *err;
  *         };
  *     };
-* }
+ * }
  * }
  */
 public class ExternResultEngineBuilder {
@@ -39,11 +39,11 @@ public class ExternResultEngineBuilder {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("ok")
-            ).withName("$anon$236:5"),
+            ).withName("$anon$238:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$239:5")
-        ).withName("$anon$235:3")
+            ).withName("$anon$241:5")
+        ).withName("$anon$237:3")
     ).withName("ExternResultEngineBuilder");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultEngineBuilder {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$235:3"), groupElement("$anon$236:5"), groupElement("ok"));
+    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$237:3"), groupElement("$anon$238:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultEngineBuilder {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$235:3"), groupElement("$anon$239:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$237:3"), groupElement("$anon$241:5"), groupElement("err"));
 
     /**
      * Layout for field:

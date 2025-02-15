@@ -39,11 +39,11 @@ public class ExternResultHandleExclusiveFileReadResultIterator {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("ok")
-            ).withName("$anon$589:5"),
+            ).withName("$anon$591:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$592:5")
-        ).withName("$anon$588:3")
+            ).withName("$anon$594:5")
+        ).withName("$anon$590:3")
     ).withName("ExternResultHandleExclusiveFileReadResultIterator");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultHandleExclusiveFileReadResultIterator {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$588:3"), groupElement("$anon$589:5"), groupElement("ok"));
+    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$590:3"), groupElement("$anon$591:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultHandleExclusiveFileReadResultIterator {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$588:3"), groupElement("$anon$592:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$590:3"), groupElement("$anon$594:5"), groupElement("err"));
 
     /**
      * Layout for field:
