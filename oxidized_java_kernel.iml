@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="release" level="project" />
+    <orderEntry type="library" name="io.delta.kernel.api" level="project" />
   </component>
 </module>

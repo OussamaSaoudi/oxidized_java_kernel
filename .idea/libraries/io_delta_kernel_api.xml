@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="io.delta.kernel.api" type="repository">
+    <properties maven-id="io.delta:delta-kernel-api:3.3.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/delta-kernel-api-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/RoaringBitmap-0.9.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/shims-0.9.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.36.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.13.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.13.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.13.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-datatype-jdk8-2.13.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
