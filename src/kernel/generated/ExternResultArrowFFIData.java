@@ -39,11 +39,11 @@ public class ExternResultArrowFFIData {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("ok")
-            ).withName("$anon$513:5"),
+            ).withName("$anon$537:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$516:5")
-        ).withName("$anon$512:3")
+            ).withName("$anon$540:5")
+        ).withName("$anon$536:3")
     ).withName("ExternResultArrowFFIData");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultArrowFFIData {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$512:3"), groupElement("$anon$513:5"), groupElement("ok"));
+    private static final AddressLayout ok$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$536:3"), groupElement("$anon$537:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultArrowFFIData {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$512:3"), groupElement("$anon$516:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$536:3"), groupElement("$anon$540:5"), groupElement("err"));
 
     /**
      * Layout for field:
