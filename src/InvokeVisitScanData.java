@@ -13,9 +13,11 @@ public class InvokeVisitScanData implements kernel_scan_data_next$engine_visitor
 
     private final Arena arena;
     private MemorySegment callback;
-    public InvokeVisitScanData(Arena arena) {
+    private EngineContext context;
+    public InvokeVisitScanData(Arena arena, EngineContext context) {
         this.arena = arena;
-        callback = CScanCallback.allocate(new ScanRowCallback(), arena);
+        this.context = context;
+        callback = CScanCallback.allocate(new ScanRowCallback(context), arena);
     }
 
     //        // void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *)

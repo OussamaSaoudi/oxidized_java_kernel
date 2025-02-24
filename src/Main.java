@@ -17,7 +17,7 @@ class AllocateErrorHandler implements AllocateErrorFn.Function {
         var strPtr = KernelStringSlice.ptr(msg);
         System.out.println("Strlen: " + strLen);
         System.out.println("e type: "+ etype);
-        var jMsg = strPtr.reinterpret(strLen).getString(0);
+        var jMsg = strPtr.getString(0);
         System.out.println("Error type: " + etype + ": " + jMsg);
         return arena.allocateFrom(jMsg);
     }
@@ -32,8 +32,8 @@ class AllocateStringHandler implements AllocateStringFn.Function {
     public MemorySegment apply(MemorySegment msg) {
         var strLen = KernelStringSlice.len(msg);
         var strPtr = KernelStringSlice.ptr(msg);
-        System.out.println("Strlen: " + strLen);
-        System.out.println("strPtr: " + strPtr);
+//        System.out.println("Strlen: " + strLen);
+//        System.out.println("strPtr: " + strPtr);
         var jMsg = strPtr.getString(0);
         return arena.allocateFrom(jMsg);
     }
@@ -63,7 +63,7 @@ public class Main {
     public static void main(String[] args) {
         try (Arena arena = Arena.ofConfined()) {
             System.out.println("Setting path");
-            MemorySegment path = kernelStringSliceFromString(arena, "/Users/oussama.saoudi/delta-kernel-rs/kernel/tests/data/app-txn-checkpoint");
+            MemorySegment path = kernelStringSliceFromString(arena, "/Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/kernel/tests/data/app-txn-checkpoint");
             System.out.println("Constructing error fn");
             MemorySegment errorFn = allocateErrorFn(arena);
             System.out.println("getting engine builder");
@@ -122,9 +122,9 @@ public class Main {
             }
             var data_iter = ExternResultHandleSharedScanDataIterator.ok(data_iter_res);
 
-            EngineContext context = new EngineContext(arena, scan, engine, tableRoot);
+            EngineContext context = new EngineContext(arena, scan, engine, rootStr);
 
-            var visit_scan_data_callback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena), arena);
+            var visit_scan_data_callback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena, context), arena);
             // iterate scan files
             for (;;) {
                 MemorySegment ok_res = kernel_scan_data_next(arena, data_iter, context.segment(), visit_scan_data_callback);

@@ -33,7 +33,7 @@ public class delta_kernel_ffi_h {
             .orElseThrow(() -> new UnsatisfiedLinkError("unresolved symbol: " + symbol));
     }
 
-    static MethodHandle upcallHandle(Class<?> fi, String name, FunctionDescriptor fdesc) {
+    public static MethodHandle upcallHandle(Class<?> fi, String name, FunctionDescriptor fdesc) {
         try {
             return MethodHandles.lookup().findVirtual(fi, name, fdesc.toMethodType());
         } catch (ReflectiveOperationException ex) {

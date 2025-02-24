@@ -28,19 +28,15 @@ public class ExpressionVisitor {
         var handler =  Linker.nativeLinker().upcallStub(handle, make_field_list_descriptor(), arena);
         EngineExpressionVisitor.make_field_list(expressionVisitor, handler);
 
-
-
         var descriptor = visit_literal_descriptor(ValueLayout.JAVA_INT);
         handle = upcallHandle(VisitorHandles.class, "visit_literal_int", descriptor).bindTo(visitor);
         handler =  Linker.nativeLinker().upcallStub(handle, descriptor, arena);
         EngineExpressionVisitor.visit_literal_int(expressionVisitor, handler);
 
-
         descriptor = visit_literal_descriptor(ValueLayout.JAVA_LONG);
         handle = upcallHandle(VisitorHandles.class, "visit_literal_long", descriptor).bindTo(visitor);
         handler =  Linker.nativeLinker().upcallStub(handle, descriptor, arena);
         EngineExpressionVisitor.visit_literal_long(expressionVisitor, handler);
-
 
         descriptor = visit_literal_descriptor(ValueLayout.JAVA_SHORT);
         handle = upcallHandle(VisitorHandles.class, "visit_literal_short", descriptor).bindTo(visitor);
