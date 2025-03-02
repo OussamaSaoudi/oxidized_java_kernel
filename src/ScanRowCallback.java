@@ -69,7 +69,7 @@ public class ScanRowCallback implements CScanCallback.Function {
             ));
             HashMap<String, String> map = new HashMap<>();
             for (String col : context.partitionColumns) {
-                var stringFn = AllocateStringFn.allocate(new AllocateStringHandler(arena), arena);
+                var stringFn = AllocateStringFn.allocate(new Utils.AllocateStringHandler(arena), arena);
                 var colSlice = KernelStringSlice.allocate(arena);
                 var msg = arena.allocateFrom(col);
                 KernelStringSlice.ptr(colSlice, msg);
