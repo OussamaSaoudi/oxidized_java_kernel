@@ -14,8 +14,8 @@ public class SchemaVisitor {
     MemorySegment schemaVisitor;
     StructType result;
 
-    public SchemaVisitor(SegmentAllocator allocator, Arena arena, MemorySegment schema) {
-        schemaVisitor = EngineSchemaVisitor.allocate(allocator);
+    public SchemaVisitor(Arena arena, MemorySegment schema) {
+        schemaVisitor = EngineSchemaVisitor.allocate(arena);
         var visitor = new VisitorHandles();
 
 

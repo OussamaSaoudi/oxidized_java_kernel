@@ -27,7 +27,7 @@ public class RustScanFileIter implements CloseableIterator<FilteredColumnarBatch
             throw new RuntimeException("Failed to create scan data iterator");
         }
         dataIter = dataIterRes.ok();
-        context = new EngineContext(arena, scan.segment(), rootStr);
+        context = new EngineContext(scan.segment(), rootStr);
         scanDataCallback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena, context), arena);
 
         fetchBatch();

@@ -23,33 +23,29 @@ public class EngineContext {
     CloseableIterator<FilteredColumnarBatch> queue;
 
     // "context" argument, and then pass it back when calling a callback.
-    EngineContext(SegmentAllocator allocator, MemorySegment scan, String tableRoot) {
-
-
+    EngineContext(MemorySegment scan, String tableRoot) {
+        // Get global scan state
         MemorySegment global_state = get_global_scan_state(scan);
-        MemorySegment logical_schema = get_global_logical_schema(global_state);
-        MemorySegment read_schema = get_global_read_schema(global_state);
-        System.out.println("Going to visit");
-        var visitor = new SchemaVisitor(allocator, Arena.ofConfined(), read_schema);
-        System.out.println("Visitor: " + visitor.result);
-        MemorySegment partition_cols = get_partition_columns(global_state);
 
-
+        // Set the table root
         this.tableRoot = tableRoot;
 
+        // Read the Read Schema
+        MemorySegment read_schema = get_global_read_schema(global_state);
+        try (Arena visitor_arena = Arena.ofConfined()) {
+            var visitor = new SchemaVisitor(visitor_arena, read_schema);
+            readSchema = visitor.result;
+        }
 
-        var logical_schema_visitor = new SchemaVisitor(Arena.ofConfined(), Arena.ofConfined(), logical_schema);
-        this.logicalSchema = logical_schema_visitor.result;
-        System.out.println("Logical schema: " + logicalSchema);
+        // Read the Logical Schema
+        MemorySegment logical_schema = get_global_logical_schema(global_state);
+        try (Arena visitorArena = Arena.ofConfined()) {
+            var logical_schema_visitor = new SchemaVisitor(visitorArena, logical_schema);
+            this.logicalSchema = logical_schema_visitor.result;
+        }
 
-        var read_schema_visitor = new SchemaVisitor(Arena.ofConfined(), Arena.ofConfined(), read_schema);
-        this.readSchema = read_schema_visitor.result;
-        System.out.println("Read schema: " + this.readSchema);
-
-
-        // bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct KernelStringSlice))
-        // Get partition columns
-//            void( * engine_visitor)(NullableCvoid, struct KernelStringSlice)
+        // Get Partition Columns
+        MemorySegment partition_cols = get_partition_columns(global_state);
         var iter = new StringSliceIter();
         var descriptor = FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, KernelStringSlice.layout());
         var handle = upcallHandle(StringSliceIter.class, "apply", descriptor).bindTo(iter);
@@ -62,8 +58,14 @@ public class EngineContext {
             }
         }
         this.partitionColumns = iter.list;
-        System.out.println("Partition columns: " + this.partitionColumns);
 
+
+        System.out.println("Logical schema: " + logicalSchema);
+
+        System.out.println("Read schema: " + this.readSchema);
+
+
+        // Initialize the queue to empty.
         this.queue = new CloseableIterator<FilteredColumnarBatch>() {
             @Override
             public boolean hasNext() {

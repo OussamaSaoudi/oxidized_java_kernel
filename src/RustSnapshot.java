@@ -1,10 +1,7 @@
 import kernel.generated.AllocateStringFn;
 import kernel.generated.delta_kernel_ffi_h;
 
-import java.lang.foreign.Arena;
-import java.lang.foreign.FunctionDescriptor;
-import java.lang.foreign.Linker;
-import java.lang.foreign.MemorySegment;
+import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
 
 import static kernel.generated.delta_kernel_ffi_h.snapshot;
@@ -29,6 +26,16 @@ public class RustSnapshot {
 
         this.segment = kernelResult.ok();
         this.arena = arena;
+
+
+        // Setup destructor
+        segment.reinterpret(arena, snapshot -> {
+            try {
+                snapshot_cleanup.HANDLE.invokeExact(segment);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public RustSnapshot(RustEngine engine, KernelStringSlice path) {
@@ -79,5 +86,14 @@ public class RustSnapshot {
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }
+    }
+
+
+    private static class snapshot_cleanup {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(ValueLayout.ADDRESS);
+
+        public static final MemorySegment ADDR = delta_kernel_ffi_h.findOrThrow("free_snapshot");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
     }
 }

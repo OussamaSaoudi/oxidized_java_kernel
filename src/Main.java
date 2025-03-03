@@ -50,7 +50,7 @@ public class Main {
             }
             var data_iter = dataIterRes.ok();
 
-            EngineContext context = new EngineContext(arena, scan.segment(), rootStr);
+            EngineContext context = new EngineContext(scan.segment(), rootStr);
 
             var visit_scan_data_callback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena, context), arena);
 //            // iterate scan files

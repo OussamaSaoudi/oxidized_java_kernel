@@ -1,7 +1,8 @@
 import kernel.generated.EnginePredicate;
+import kernel.generated.delta_kernel_ffi_h;
 
-import java.lang.foreign.Arena;
-import java.lang.foreign.MemorySegment;
+import java.lang.foreign.*;
+import java.lang.invoke.MethodHandle;
 
 import static kernel.generated.delta_kernel_ffi_h.scan;
 
@@ -22,6 +23,23 @@ public class RustScan {
         }
         this.segment = scanRes.ok();
         this.arena = arena;
+
+        // Setup destructor
+        segment.reinterpret(arena, scan -> {
+            try {
+                scan_cleanup.HANDLE.invokeExact(scan);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private static class scan_cleanup {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(ValueLayout.ADDRESS);
+
+        public static final MemorySegment ADDR = delta_kernel_ffi_h.findOrThrow("free_scan");
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
     }
 
     public MemorySegment segment() {
