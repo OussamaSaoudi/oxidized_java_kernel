@@ -1,7 +1,10 @@
+import io.delta.kernel.data.FilteredColumnarBatch;
 import io.delta.kernel.types.StructType;
+import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.KernelStringSlice;
 import kernel.generated.delta_kernel_ffi_h;
 
+import java.io.IOException;
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
@@ -13,14 +16,14 @@ import static kernel.generated.delta_kernel_ffi_h.*;
 import static kernel.generated.delta_kernel_ffi_h.string_slice_next;
 
 public class EngineContext {
-    MemorySegment struct;
     StructType logicalSchema;
     StructType readSchema;
     ArrayList<String> partitionColumns;
     String tableRoot;
+    CloseableIterator<FilteredColumnarBatch> queue;
+
     // "context" argument, and then pass it back when calling a callback.
-    EngineContext(SegmentAllocator allocator, MemorySegment scan, MemorySegment engine, String tableRoot) {
-        struct = allocator.allocate(layout());
+    EngineContext(SegmentAllocator allocator, MemorySegment scan, String tableRoot) {
 
 
         MemorySegment global_state = get_global_scan_state(scan);
@@ -30,14 +33,6 @@ public class EngineContext {
         var visitor = new SchemaVisitor(allocator, Arena.ofConfined(), read_schema);
         System.out.println("Visitor: " + visitor.result);
         MemorySegment partition_cols = get_partition_columns(global_state);
-
-        var layout = layout();
-        struct.set(delta_kernel_ffi_h.C_POINTER, 0, global_state);
-        struct.set(delta_kernel_ffi_h.C_POINTER, 8, logical_schema);
-        struct.set(delta_kernel_ffi_h.C_POINTER, 16, read_schema);
-//        struct.set(delta_kernel_ffi_h.C_POINTER, 24, tableRoot);
-        struct.set(delta_kernel_ffi_h.C_POINTER, 32, engine);
-        struct.set(delta_kernel_ffi_h.C_POINTER, 40, partition_cols);
 
 
         this.tableRoot = tableRoot;
@@ -68,21 +63,22 @@ public class EngineContext {
         }
         this.partitionColumns = iter.list;
         System.out.println("Partition columns: " + this.partitionColumns);
-    }
 
-    public static MemoryLayout layout() {
-        return MemoryLayout.structLayout(
-                delta_kernel_ffi_h.C_POINTER.withName("global_state"),
-                delta_kernel_ffi_h.C_POINTER.withName("logical_schema"),
-                delta_kernel_ffi_h.C_POINTER.withName("read_schema"),
-                delta_kernel_ffi_h.C_POINTER.withName("table_root"),
-                delta_kernel_ffi_h.C_POINTER.withName("engine"),
-                delta_kernel_ffi_h.C_POINTER.withName("partition_cols"),
-                delta_kernel_ffi_h.C_POINTER.withName("partition_values")
-        );
-    }
-    public MemorySegment segment() {
-        return struct;
+        this.queue = new CloseableIterator<FilteredColumnarBatch>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public FilteredColumnarBatch next() {
+                return null;
+            }
+
+            @Override
+            public void close() throws IOException {
+            }
+        };
     }
 
 
@@ -96,10 +92,11 @@ public class EngineContext {
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
     }
+
     public static MemorySegment get_global_logical_schema(MemorySegment state) {
         var mh$ = get_global_logical_schema.HANDLE;
         try {
-            return (MemorySegment)mh$.invokeExact(state);
+            return (MemorySegment) mh$.invokeExact(state);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }
@@ -115,10 +112,11 @@ public class EngineContext {
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
     }
+
     public static MemorySegment get_partition_columns(MemorySegment state) {
         var mh$ = get_partition_columns.HANDLE;
         try {
-            return (MemorySegment)mh$.invokeExact(state);
+            return (MemorySegment) mh$.invokeExact(state);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

@@ -3,21 +3,16 @@ import java.lang.foreign.MemorySegment;
 
 public class RustEngine {
     private final Arena arena;
-    public RustEngine(Arena arena, String path) {
+    private  final MemorySegment segment;
+    public RustEngine(Arena arena, MemorySegment segment) {
         this.arena = arena;
+        this.segment = segment;
     }
-    public RustEngine(String path) {
-        // This arena's lifetime will be tied to `this`
-        this.arena = Arena.ofAuto();
+    public RustEngine(MemorySegment segment) {
+        this(Arena.ofAuto(), segment);
     }
 
-    /** Wraps a MemorySegment that represents a rust kernel engine. This handles low-level operations related to the
-     *  kernel engnie.
-     */
-    private class RustKernelEngineSegment {
-        private final MemorySegment segment;
-        RustKernelEngineSegment(MemorySegment segment) {
-            this.segment = segment;
-        }
+    public MemorySegment segment() {
+        return segment;
     }
 }

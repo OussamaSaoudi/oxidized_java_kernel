@@ -33,7 +33,7 @@ public class RustEngineBuilder {
         this(Arena.ofAuto(), path);
     }
 
-    public MemorySegment build() {
+    public MemorySegment buildSegment() {
         var buildRes = builder_build(arena, segment);
         var kernelResult = new KernelResult(buildRes);
         if (kernelResult.isErr()) {
@@ -41,5 +41,10 @@ public class RustEngineBuilder {
             throw new RuntimeException("got error");
         }
         return kernelResult.ok();
+    }
+
+    public RustEngine build() {
+        var segment = buildSegment();
+        return new RustEngine(segment);
     }
 }

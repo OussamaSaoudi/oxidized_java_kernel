@@ -35,6 +35,7 @@ import java.util.Queue;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static io.delta.kernel.internal.util.Utils.singletonCloseableIterator;
 import static kernel.generated.delta_kernel_ffi_h.string_slice_next;
@@ -170,33 +171,57 @@ public class ScanRowCallback implements CScanCallback.Function {
                     return new FilteredColumnarBatch(nextDataBatch, selectionVector);
                 }
             };
-//            System.out.println("Iterating on filtered column batch");
-            while (filteredColumnBatch.hasNext()) {
-                FilteredColumnarBatch logicalData = filteredColumnBatch.next();
-                ColumnarBatch dataBatch = logicalData.getData();
-//                System.out.println("Data schema: " + dataBatch.getSchema());
-//                System.out.println("Got data batch: " + dataBatch.getSize());
-
-                // Not all rows in `dataBatch` are in the selected output.
-                // An optional selection vector determines whether a row with a
-                // specific row index is in the final output or not.
-                Optional<ColumnVector> selectionVector = logicalData.getSelectionVector();
-
-                // access the data for the column at ordinal 0
-                for (CloseableIterator<Row> it = logicalData.getRows(); it.hasNext(); ) {
-                    Row row = it.next();
-                    printRow(row);
+            var oldQueue = context.queue;
+            context.queue = new CloseableIterator<FilteredColumnarBatch>() {
+                @Override
+                public boolean hasNext() {
+                    return oldQueue.hasNext() || filteredColumnBatch.hasNext();
                 }
-//                for (int rowIndex = 0; rowIndex < column0.getSize(); rowIndex++) {
-//                    // check if the row is selected or not
-//                    if (!selectionVector.isPresent() || // there is no selection vector, all records are selected
-//                            (!selectionVector.get().isNullAt(rowIndex) && selectionVector.get().getBoolean(rowIndex))) {
-//                        // Assuming the column type is String.
-//                        // If it is a different type, call the relevant function on the `ColumnVector`
-//                        System.out.println(column0.getString(rowIndex));
-//                    }
+
+                @Override
+                public FilteredColumnarBatch next() {
+                    if (oldQueue.hasNext()) {
+                        return oldQueue.next();
+                    } else {
+                        return filteredColumnBatch.next();
+                    }
+                }
+
+                @Override
+                public void close() throws IOException {
+                    oldQueue.close();
+                    filteredColumnBatch.close();
+                }
+            };
+//            System.out.println("Iterating on filtered column batch");
+
+            // TODO: Move this to main function
+//            while (filteredColumnBatch.hasNext()) {
+//                FilteredColumnarBatch logicalData = filteredColumnBatch.next();
+//                ColumnarBatch dataBatch = logicalData.getData();
+////                System.out.println("Data schema: " + dataBatch.getSchema());
+////                System.out.println("Got data batch: " + dataBatch.getSize());
+//
+//                // Not all rows in `dataBatch` are in the selected output.
+//                // An optional selection vector determines whether a row with a
+//                // specific row index is in the final output or not.
+//                Optional<ColumnVector> selectionVector = logicalData.getSelectionVector();
+//
+//                // access the data for the column at ordinal 0
+//                for (CloseableIterator<Row> it = logicalData.getRows(); it.hasNext(); ) {
+//                    Row row = it.next();
+//                    printRow(row);
 //                }
-            }
+////                for (int rowIndex = 0; rowIndex < column0.getSize(); rowIndex++) {
+////                    // check if the row is selected or not
+////                    if (!selectionVector.isPresent() || // there is no selection vector, all records are selected
+////                            (!selectionVector.get().isNullAt(rowIndex) && selectionVector.get().getBoolean(rowIndex))) {
+////                        // Assuming the column type is String.
+////                        // If it is a different type, call the relevant function on the `ColumnVector`
+////                        System.out.println(column0.getString(rowIndex));
+////                    }
+////                }
+//            }
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         } catch (Throwable e) {

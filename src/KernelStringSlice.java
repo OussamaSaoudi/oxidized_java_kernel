@@ -92,4 +92,9 @@ public class KernelStringSlice {
         return this.segment;
     }
 
+    @Override
+    public String toString() {
+        var segment = ptr();
+        return segment.reinterpret(len() + 1).getString(0);
+    }
 }

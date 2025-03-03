@@ -33,39 +33,3 @@ public class InvokeVisitScanData implements kernel_scan_data_next$engine_visitor
 //        free_engine_data(engine_data);
     }
 }
-
-//public class InvokeVisitScanData {
-//
-//    final static Linker linker = Linker.nativeLinker();
-//
-//    class VisitScanData{
-//        // void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *)
-//        static void visit_scan_data(MemorySegment engineContext, MemorySegment engineData, MemorySegment selection_vector, MemorySegment c_transform) {
-//            // todo
-//        }
-//
-//        MethodHandle visitor_handle() throws NoSuchMethodException, IllegalAccessException {
-//
-//            MethodHandle comparHandle = MethodHandles.lookup()
-//                    .findStatic(VisitScanData.class,
-//                            "visit_scan_data",
-//                            MethodType.methodType(void.class, MemorySegment.class, MemorySegment.class, MemorySegment.class, MemorySegment.class));
-//        }
-//        FunctionDescriptor descriptor() {
-//            // Create a Java description of a C function implemented by a Java method
-//             return FunctionDescriptor.of(
-//                    ValueLayout.JAVA_INT,
-//                    ValueLayout.ADDRESS.withTargetLayout(ValueLayout.JAVA_INT),
-//                    ValueLayout.ADDRESS.withTargetLayout(ValueLayout.JAVA_INT));
-//
-//
-//        }
-//        MemorySegment func() {
-//            var handle = visitor_handle();
-//            // Create function pointer for qsortCompare
-//            MemorySegment compareFunc = linker.upcallStub(handle,
-//                    descriptor(),
-//                    Arena.ofAuto());
-//        }
-//    }
-//}
