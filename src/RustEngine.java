@@ -1,10 +1,11 @@
+import io.delta.kernel.engine.Engine;
 import kernel.generated.KernelBoolSlice;
 import kernel.generated.delta_kernel_ffi_h;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
 
-public class RustEngine {
+public class RustEngine  {
     private final Arena arena;
     private final MemorySegment segment;
 

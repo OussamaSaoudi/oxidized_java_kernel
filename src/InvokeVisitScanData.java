@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
-import static kernel.generated.delta_kernel_ffi_h.visit_scan_data;
+import static kernel.generated.delta_kernel_ffi_h.*;
 
 public class InvokeVisitScanData implements kernel_scan_data_next$engine_visitor.Function{
 
@@ -23,13 +23,8 @@ public class InvokeVisitScanData implements kernel_scan_data_next$engine_visitor
     //        // void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *)
     @Override
     public void apply(MemorySegment context, MemorySegment engineData, MemorySegment selectionVector, MemorySegment transforms) {
-//        print_diag("\nScan iterator found some data to read\n  Of this data, here is "
-//                "a selection vector\n");
-//        print_selection_vector("    ", &selection_vec);
-//        // Ask kernel to iterate each individual file and call us back with extracted metadata
-//        print_diag("Asking kernel to call us back for each scan row (file to read)\n");
         visit_scan_data(engineData, selectionVector, transforms, context, callback);
-//        free_bool_slice(selection_vec);
-//        free_engine_data(engine_data);
+        free_bool_slice(selectionVector);
+        free_engine_data(engineData);
     }
 }

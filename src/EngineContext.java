@@ -1,8 +1,11 @@
 import io.delta.kernel.data.FilteredColumnarBatch;
+import io.delta.kernel.defaults.engine.DefaultEngine;
+import io.delta.kernel.engine.Engine;
 import io.delta.kernel.types.StructType;
 import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.KernelStringSlice;
 import kernel.generated.delta_kernel_ffi_h;
+import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
 import java.lang.foreign.*;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static io.delta.kernel.types.StructField.METADATA_ROW_INDEX_COLUMN;
 import static kernel.generated.delta_kernel_ffi_h.*;
 import static kernel.generated.delta_kernel_ffi_h.string_slice_next;
 
@@ -20,32 +24,40 @@ public class EngineContext {
     StructType readSchema;
     ArrayList<String> partitionColumns;
     String tableRoot;
-    CloseableIterator<FilteredColumnarBatch> queue;
+    Queue<RustScanFileRow> queue;
+    RustEngine engine;
+    MemorySegment globalScanState;
+    Engine javaEngine;
 
     // "context" argument, and then pass it back when calling a callback.
-    EngineContext(MemorySegment scan, String tableRoot) {
+    EngineContext(RustEngine engine, RustScan scan, String tableRoot) {
+        // Set the engine so we can use it in the Scan Row Callback
+
+        this.engine = engine;
         // Get global scan state
-        MemorySegment global_state = get_global_scan_state(scan);
+        globalScanState = get_global_scan_state(scan.segment());
 
         // Set the table root
         this.tableRoot = tableRoot;
 
         // Read the Read Schema
-        MemorySegment read_schema = get_global_read_schema(global_state);
+        MemorySegment read_schema = get_global_read_schema(globalScanState);
         try (Arena visitor_arena = Arena.ofConfined()) {
             var visitor = new SchemaVisitor(visitor_arena, read_schema);
-            readSchema = visitor.result;
+            readSchema = visitor.result.add(METADATA_ROW_INDEX_COLUMN);
         }
 
         // Read the Logical Schema
-        MemorySegment logical_schema = get_global_logical_schema(global_state);
+        MemorySegment logical_schema = get_global_logical_schema(globalScanState);
         try (Arena visitorArena = Arena.ofConfined()) {
             var logical_schema_visitor = new SchemaVisitor(visitorArena, logical_schema);
             this.logicalSchema = logical_schema_visitor.result;
         }
 
+        javaEngine = DefaultEngine.create(new Configuration());
+
         // Get Partition Columns
-        MemorySegment partition_cols = get_partition_columns(global_state);
+        MemorySegment partition_cols = get_partition_columns(globalScanState);
         var iter = new StringSliceIter();
         var descriptor = FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, KernelStringSlice.layout());
         var handle = upcallHandle(StringSliceIter.class, "apply", descriptor).bindTo(iter);
@@ -53,34 +65,13 @@ public class EngineContext {
         for (; ; ) {
             boolean has_next = string_slice_next(partition_cols, MemorySegment.ofAddress(0), handler);
             if (!has_next) {
-                System.out.println("Done iterating partition columns\n");
                 break;
             }
         }
         this.partitionColumns = iter.list;
 
-
-        System.out.println("Logical schema: " + logicalSchema);
-
-        System.out.println("Read schema: " + this.readSchema);
-
-
         // Initialize the queue to empty.
-        this.queue = new CloseableIterator<FilteredColumnarBatch>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public FilteredColumnarBatch next() {
-                return null;
-            }
-
-            @Override
-            public void close() throws IOException {
-            }
-        };
+        this.queue = new LinkedList<>();
     }
 
 

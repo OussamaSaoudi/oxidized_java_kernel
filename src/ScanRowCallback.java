@@ -1,45 +1,30 @@
-import io.delta.kernel.Table;
 import io.delta.kernel.data.ColumnVector;
 import io.delta.kernel.data.ColumnarBatch;
 import io.delta.kernel.data.FilteredColumnarBatch;
-import io.delta.kernel.data.Row;
 import io.delta.kernel.defaults.engine.DefaultEngine;
 import io.delta.kernel.engine.Engine;
-import io.delta.kernel.internal.InternalScanFileUtils;
-import io.delta.kernel.internal.TableImpl;
-import io.delta.kernel.internal.util.ColumnMapping;
+import io.delta.kernel.expressions.Expression;
+import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
+import io.delta.kernel.internal.data.GenericRow;
+import io.delta.kernel.internal.data.SelectionColumnVector;
+import io.delta.kernel.internal.deletionvectors.RoaringBitmapArray;
 import io.delta.kernel.internal.util.PartitionUtils;
-import io.delta.kernel.types.BooleanType;
-import io.delta.kernel.types.DataType;
 import io.delta.kernel.types.*;
-import io.delta.kernel.types.StructField;
 import io.delta.kernel.utils.CloseableIterator;
 import io.delta.kernel.utils.FileStatus;
-import kernel.generated.AllocateStringFn;
-import kernel.generated.CScanCallback;
+import kernel.generated.*;
 import kernel.generated.KernelStringSlice;
-import kernel.generated.delta_kernel_ffi_h;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
 import java.lang.foreign.*;
-import java.lang.invoke.VarHandle;
-import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Queue;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static io.delta.kernel.internal.util.Utils.singletonCloseableIterator;
-import static kernel.generated.delta_kernel_ffi_h.string_slice_next;
-import static kernel.generated.delta_kernel_ffi_h.upcallHandle;
+import static kernel.generated.delta_kernel_ffi_h.*;
 
 public class ScanRowCallback implements CScanCallback.Function {
 
@@ -56,243 +41,141 @@ public class ScanRowCallback implements CScanCallback.Function {
         var pathStr = strPtr.getString(0).substring(0, (int) strLen);
         pathStr = context.tableRoot + pathStr;
         try (Arena arena = Arena.ofConfined()) {
-//            var visitor = new ExpressionVisitor(arena, arena, expression);
-            FileStatus fileStatus = FileStatus.of(pathStr, size, 0);
 
-//            System.out.println("-----------------\nVisiting: " + pathStr + "\nRead Schema: " + context.readSchema + "\nLogical Schema: " + context.logicalSchema + "\nPartition columns: " + context.partitionColumns);
+            // Get FileStatus
+//            FileStatus fileStatus = getFileStatus(size, pathStr);
 
-            // TODO(OUSSAMA): Get partition values
-            var get_from_string_map = Linker.nativeLinker().downcallHandle(delta_kernel_ffi_h.findOrThrow("get_from_string_map"), FunctionDescriptor.of(
-                    delta_kernel_ffi_h.C_POINTER,
-                    ValueLayout.ADDRESS,
-                    KernelStringSlice.layout(),
-                    delta_kernel_ffi_h.C_POINTER
-            ));
-            HashMap<String, String> map = new HashMap<>();
-            for (String col : context.partitionColumns) {
-                var stringFn = AllocateStringFn.allocate(new Utils.AllocateStringHandler(arena), arena);
-                var colSlice = KernelStringSlice.allocate(arena);
-                var msg = arena.allocateFrom(col);
-                KernelStringSlice.ptr(colSlice, msg);
-                KernelStringSlice.len(colSlice, col.length());
-                MemorySegment nullableStringRef = (MemorySegment) get_from_string_map.invoke(partition_map, colSlice, stringFn);
-//                System.out.println("Got memory segment with size; " + nullableStringRef);
-                if (nullableStringRef.address() == 0) continue;
-                String rootStr = nullableStringRef.getString(0);
-//                System.out.println("PartitionColumn: " + col + ":" + rootStr);
-                map.put(col, rootStr);
 
+            HashMap<String, String> partitionValues = getPartitionMap(partition_map, arena);
+
+            var deletionVector= getDeletionVector(dv_info, arena);
+
+            Optional<Expression> javaExpression = Optional.empty();
+            if (!expression.equals(MemorySegment.NULL)) {
+                ExpressionVisitor expressionVisitor = new ExpressionVisitor(arena, arena, expression);
+                javaExpression = Optional.of(expressionVisitor.result);
             }
-//            char* partition_val = get_from_string_map(partition_values, key, allocate_string);
-//            if (partition_val) {
-//                print_diag("  partition '%s' here: %s\n", col, partition_val);
-//            } else {
-//                print_diag("  no partition here\n");
-//            }
-//
 
-            Configuration hadoopConf = new Configuration();
-            Engine engine = DefaultEngine.create(hadoopConf);
-            CloseableIterator<ColumnarBatch> physicalDataIter =
-                    engine.getParquetHandler().readParquetFiles(
-                            singletonCloseableIterator(fileStatus),
-                            context.readSchema,
-                            Optional.empty() /* optional predicate the connector can apply to filter data from the reader */
-                    );
-
-
-            // TODO(OUSSAMA): This is a snippet  that is from the java kernel that seems like a good basis for an iterator of data batches
-            var filteredColumnBatch = new CloseableIterator<FilteredColumnarBatch>() {
-
-                @Override
-                public void close() throws IOException {
-                    physicalDataIter.close();
-                }
-
-                @Override
-                public boolean hasNext() {
-                    return physicalDataIter.hasNext();
-                }
-
-                @Override
-                public FilteredColumnarBatch next() {
-                    ColumnarBatch nextDataBatch = physicalDataIter.next();
-
-                    // TODO(OUSSAMA): Eventually add deletion vector support;
-//                    DeletionVectorDescriptor dv =
-//                            InternalScanFileUtils.getDeletionVectorDescriptorFromRow(scanFile);
-
-                    int rowIndexOrdinal = nextDataBatch.getSchema().indexOf(StructField.METADATA_ROW_INDEX_COLUMN_NAME);
-
-                    // Get the selectionVector if DV is present
-                    Optional<ColumnVector> selectionVector = Optional.empty();
-//                    if (dv == null) {
-//                        selectionVector = Optional.empty();
-//                    } else {
-//                        if (rowIndexOrdinal == -1) {
-//                            throw new IllegalArgumentException(
-//                                    "Row index column is not " + "present in the data read from the Parquet file.");
-//                        }
-//                        if (!dv.equals(currDV)) {
-//                            Tuple2<DeletionVectorDescriptor, RoaringBitmapArray> dvInfo =
-//                                    DeletionVectorUtils.loadNewDvAndBitmap(engine, tablePath, dv);
-//                            this.currDV = dvInfo._1;
-//                            this.currBitmap = dvInfo._2;
-//                        }
-//                        ColumnVector rowIndexVector = nextDataBatch.getColumnVector(rowIndexOrdinal);
-//                        selectionVector = Optional.of(new SelectionColumnVector(currBitmap, rowIndexVector));
-//                    }
-                    if (rowIndexOrdinal != -1) {
-                        nextDataBatch = nextDataBatch.withDeletedColumnAt(rowIndexOrdinal);
-                    }
-
-                    // Add partition columns
-                    nextDataBatch =
-                            PartitionUtils.withPartitionColumns(
-                                    engine.getExpressionHandler(),
-                                    nextDataBatch,
-                                    map,
-                                    context.logicalSchema);
-
-                    // TODO(OUSSAMA): Enable column mapping mode
-//                    ColumnMapping.ColumnMappingMode columnMappingMode = ScanStateRow.getColumnMappingMode(scanState);
-//                    switch (columnMappingMode) {
-//                        case NAME: // fall through
-//                        case ID:
-//                            nextDataBatch = nextDataBatch.withNewSchema(logicalReadSchema);
-//                            break;
-//                        case NONE:
-//                            break;
-//                        default:
-//                            throw new UnsupportedOperationException(
-//                                    "Column mapping mode is not yet supported: " + columnMappingMode);
-//                    }
-
-                    return new FilteredColumnarBatch(nextDataBatch, selectionVector);
-                }
-            };
-            var oldQueue = context.queue;
-            context.queue = new CloseableIterator<FilteredColumnarBatch>() {
-                @Override
-                public boolean hasNext() {
-                    return oldQueue.hasNext() || filteredColumnBatch.hasNext();
-                }
-
-                @Override
-                public FilteredColumnarBatch next() {
-                    if (oldQueue.hasNext()) {
-                        return oldQueue.next();
-                    } else {
-                        return filteredColumnBatch.next();
-                    }
-                }
-
-                @Override
-                public void close() throws IOException {
-                    oldQueue.close();
-                    filteredColumnBatch.close();
-                }
-            };
-//            System.out.println("Iterating on filtered column batch");
-
-            // TODO: Move this to main function
-//            while (filteredColumnBatch.hasNext()) {
-//                FilteredColumnarBatch logicalData = filteredColumnBatch.next();
-//                ColumnarBatch dataBatch = logicalData.getData();
-////                System.out.println("Data schema: " + dataBatch.getSchema());
-////                System.out.println("Got data batch: " + dataBatch.getSize());
-//
-//                // Not all rows in `dataBatch` are in the selected output.
-//                // An optional selection vector determines whether a row with a
-//                // specific row index is in the final output or not.
-//                Optional<ColumnVector> selectionVector = logicalData.getSelectionVector();
-//
-//                // access the data for the column at ordinal 0
-//                for (CloseableIterator<Row> it = logicalData.getRows(); it.hasNext(); ) {
-//                    Row row = it.next();
-//                    printRow(row);
-//                }
-////                for (int rowIndex = 0; rowIndex < column0.getSize(); rowIndex++) {
-////                    // check if the row is selected or not
-////                    if (!selectionVector.isPresent() || // there is no selection vector, all records are selected
-////                            (!selectionVector.get().isNullAt(rowIndex) && selectionVector.get().getBoolean(rowIndex))) {
-////                        // Assuming the column type is String.
-////                        // If it is a different type, call the relevant function on the `ColumnVector`
-////                        System.out.println(column0.getString(rowIndex));
-////                    }
-////                }
-//            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            context.queue.add(new RustScanFileRow(deletionVector, partitionValues, pathStr, size, javaExpression));
         } catch (Throwable e) {
+            System.out.println("Throw");
             throw new RuntimeException(e);
         }
-//        }
-//
     }
 
-    protected static void printRow(Row row){
-        int numCols = row.getSchema().length();
-        Object[] rowValues = IntStream.range(0, numCols)
-                .mapToObj(colOrdinal -> getValue(row, colOrdinal))
-                .toArray();
+    private static Optional<DeletionVectorDescriptor> getDeletionVector(MemorySegment dv_info, Arena arena) throws Throwable {
+        var dvVisitor = new DvVisitor();
+        var descriptor = FunctionDescriptor.ofVoid(KernelStringSlice.layout(), KernelStringSlice.layout(), ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_LONG);
+        var handle = upcallHandle(DvVisitor.class, "visitDeletionVector", descriptor).bindTo(dvVisitor);
+        var handler = Linker.nativeLinker().upcallStub(handle, descriptor, arena);
 
-        // TODO: Need to handle the Row, Map, Array, Timestamp, Date types specially to
-        // print them in the format they need. Copy this code from Spark CLI.
-
-        System.out.printf(formatter(numCols), rowValues);
-    }
-    private static String formatter(int length) {
-        return IntStream.range(0, length)
-                .mapToObj(i -> "%20s")
-                .collect(Collectors.joining("|")) + "\n";
+        var downcallDescriptor = FunctionDescriptor.ofVoid(
+                ValueLayout.ADDRESS,
+                ValueLayout.ADDRESS
+        );
+        var visitDvIfPresent = Linker.nativeLinker().downcallHandle(delta_kernel_ffi_h.findOrThrow("visit_dv_if_present"), downcallDescriptor);
+        visitDvIfPresent.invokeExact(dv_info, handler);
+        return dvVisitor.getResult();
     }
 
-    private static String getValue(Row row, int columnOrdinal) {
-        DataType dataType = row.getSchema().at(columnOrdinal).getDataType();
-        if (row.isNullAt(columnOrdinal)) {
-            return null;
-        } else if (dataType instanceof BooleanType) {
-            return Boolean.toString(row.getBoolean(columnOrdinal));
-        } else if (dataType instanceof ByteType) {
-            return Byte.toString(row.getByte(columnOrdinal));
-        } else if (dataType instanceof ShortType) {
-            return Short.toString(row.getShort(columnOrdinal));
-        } else if (dataType instanceof IntegerType) {
-            return Integer.toString(row.getInt(columnOrdinal));
-        } else if (dataType instanceof DateType) {
-            // DateType data is stored internally as the number of days since 1970-01-01
-            int daysSinceEpochUTC = row.getInt(columnOrdinal);
-            return LocalDate.ofEpochDay(daysSinceEpochUTC).toString();
-        } else if (dataType instanceof LongType) {
-            return Long.toString(row.getLong(columnOrdinal));
-        } else if (dataType instanceof TimestampType || dataType instanceof TimestampNTZType) {
-            // Timestamps are stored internally as the number of microseconds since epoch.
-            // TODO: TimestampType should use the session timezone to display values.
-            long microSecsSinceEpochUTC = row.getLong(columnOrdinal);
-            LocalDateTime dateTime = LocalDateTime.ofEpochSecond(
-                    microSecsSinceEpochUTC / 1_000_000 /* epochSecond */,
-                    (int) (1000 * microSecsSinceEpochUTC % 1_000_000) /* nanoOfSecond */,
-                    ZoneOffset.UTC);
-            return dateTime.toString();
-        } else if (dataType instanceof FloatType) {
-            return Float.toString(row.getFloat(columnOrdinal));
-        } else if (dataType instanceof DoubleType) {
-            return Double.toString(row.getDouble(columnOrdinal));
-        } else if (dataType instanceof StringType) {
-            return row.getString(columnOrdinal);
-        } else if (dataType instanceof BinaryType) {
-            return new String(row.getBinary(columnOrdinal));
-        } else if (dataType instanceof DecimalType) {
-            return row.getDecimal(columnOrdinal).toString();
-        } else if (dataType instanceof StructType) {
-            return "TODO: struct value";
-        } else if (dataType instanceof ArrayType) {
-            return "TODO: list value";
-        } else if (dataType instanceof MapType) {
-            return "TODO: map value";
-        } else {
-            throw new UnsupportedOperationException("unsupported data type: " + dataType);
+    private static Engine getEngine() {
+        Configuration hadoopConf = new Configuration();
+        Engine engine = DefaultEngine.create(hadoopConf);
+        return engine;
+    }
+
+    private CloseableIterator<FilteredColumnarBatch> getDataIterator(Engine engine, FileStatus fileStatus, RoaringBitmapArray currBitmap, HashMap<String, String> map) throws IOException {
+        CloseableIterator<ColumnarBatch> physicalDataIter =
+                engine.getParquetHandler().readParquetFiles(
+                        singletonCloseableIterator(fileStatus),
+                        context.readSchema,
+                        Optional.empty() /* optional predicate the connector can apply to filter data from the reader */
+                );
+
+
+        var filteredColumnBatch = new CloseableIterator<FilteredColumnarBatch>() {
+
+            @Override
+            public void close() throws IOException {
+                physicalDataIter.close();
+            }
+
+            @Override
+            public boolean hasNext() {
+                return physicalDataIter.hasNext();
+            }
+
+            @Override
+            public FilteredColumnarBatch next() {
+                ColumnarBatch nextDataBatch = physicalDataIter.next();
+
+                int rowIndexOrdinal = nextDataBatch.getSchema().indexOf(StructField.METADATA_ROW_INDEX_COLUMN_NAME);
+
+                // Get the selectionVector if DV is present
+                ColumnVector rowIndexVector = nextDataBatch.getColumnVector(rowIndexOrdinal);
+                Optional<ColumnVector> selectionVector = Optional.of(new SelectionColumnVector(currBitmap, rowIndexVector));
+                if (rowIndexOrdinal != -1) {
+                    nextDataBatch = nextDataBatch.withDeletedColumnAt(rowIndexOrdinal);
+                }
+
+                // Add partition columns
+                nextDataBatch =
+                        PartitionUtils.withPartitionColumns(
+                                engine.getExpressionHandler(),
+                                nextDataBatch,
+                                map,
+                                context.logicalSchema);
+
+
+                return new FilteredColumnarBatch(nextDataBatch, selectionVector);
+            }
+        };
+        return filteredColumnBatch;
+    }
+
+    private RoaringBitmapArray getSelectionVector(MemorySegment dv_info, Arena arena) {
+        MemorySegment row_idxs = row_indexes_from_dv(arena, dv_info, context.engine.segment(), context.globalScanState);
+        if (ExternResultKernelRowIndexArray.tag(row_idxs) != 0) {
+            throw new RuntimeException("Failed");
         }
+        var row_idx_vec = ExternResultKernelRowIndexArray.ok(row_idxs);
+        MemorySegment arr = KernelRowIndexArray.ptr(row_idx_vec);
+        long len = KernelRowIndexArray.len(row_idx_vec);
+        var currBitmap = new RoaringBitmapArray();
+        for (int i = 0; i < len; i++) {
+            var val = arr.getAtIndex(AddressLayout.JAVA_LONG, i);
+            currBitmap.add(val);
+        }
+        free_row_indexes(row_idx_vec);
+        return currBitmap;
     }
+
+    private HashMap<String, String> getPartitionMap(MemorySegment partition_map, Arena arena) throws Throwable {
+        // Get partition map
+        var get_from_string_map = Linker.nativeLinker().downcallHandle(delta_kernel_ffi_h.findOrThrow("get_from_string_map"), FunctionDescriptor.of(
+                delta_kernel_ffi_h.C_POINTER,
+                ValueLayout.ADDRESS,
+                KernelStringSlice.layout(),
+                delta_kernel_ffi_h.C_POINTER
+        ));
+        HashMap<String, String> map = new HashMap<>();
+        for (String col : context.partitionColumns) {
+            var stringFn = AllocateStringFn.allocate(new Utils.AllocateStringHandler(arena), arena);
+            var colSlice = KernelStringSlice.allocate(arena);
+            var msg = arena.allocateFrom(col);
+            KernelStringSlice.ptr(colSlice, msg);
+            KernelStringSlice.len(colSlice, col.length());
+            MemorySegment nullableStringRef = (MemorySegment) get_from_string_map.invoke(partition_map, colSlice, stringFn);
+            if (nullableStringRef.address() == 0) continue;
+            String rootStr = nullableStringRef.getString(0);
+            map.put(col, rootStr);
+        }
+        return map;
+    }
+
+    private static FileStatus getFileStatus(long size, String pathStr) {
+        FileStatus fileStatus = FileStatus.of(pathStr, size, 0);
+        return fileStatus;
+    }
+
 }

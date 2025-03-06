@@ -1,13 +1,18 @@
+import io.delta.kernel.ScanBuilder;
+import io.delta.kernel.Snapshot;
+import io.delta.kernel.engine.Engine;
+import io.delta.kernel.types.StructType;
 import kernel.generated.AllocateStringFn;
 import kernel.generated.delta_kernel_ffi_h;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
+import java.util.List;
 
 import static kernel.generated.delta_kernel_ffi_h.snapshot;
 
 
-public class RustSnapshot {
+public class RustSnapshot implements Snapshot {
     private final Arena arena;
     private final MemorySegment segment;
     public RustSnapshot(Arena arena, MemorySegment segment) {
@@ -46,6 +51,28 @@ public class RustSnapshot {
         return this.segment;
     }
 
+
+    @Override
+    public List<String> getPartitionColumnNames(Engine engine) {
+        return List.of();
+    }
+
+    @Override
+    public long getTimestamp(Engine engine) {
+        // TODO
+        return 0;
+    }
+
+    @Override
+    public StructType getSchema(Engine engine) {
+        return null;
+    }
+
+    @Override
+    public ScanBuilder getScanBuilder(Engine engine) {
+        return null;
+    }
+
     private static class version {
         public static final FunctionDescriptor DESC = FunctionDescriptor.of(
                 delta_kernel_ffi_h.C_LONG_LONG,
@@ -56,7 +83,9 @@ public class RustSnapshot {
 
         public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(ADDR, DESC);
     }
-    public long version() {
+
+    @Override
+    public long getVersion(Engine _engine) {
         var methodHandle = version.HANDLE;
         try {
             return (long)methodHandle.invokeExact(segment);

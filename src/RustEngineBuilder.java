@@ -17,7 +17,7 @@ public class RustEngineBuilder {
             // The error allocation function is confined. This deallocates it once this scope ends
             MemorySegment errorFn = Utils.allocateErrorFn(builderArena);
 
-            MemorySegment builderRes = get_engine_builder(arena, path.segment(), errorFn);
+            MemorySegment builderRes = get_engine_builder(builderArena, path.segment(), errorFn);
 
             var kernelResult = new KernelResult(builderRes);
             if (kernelResult.isErr()) {

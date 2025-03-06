@@ -10,5 +10,7 @@
     <orderEntry type="library" name="release" level="project" />
     <orderEntry type="library" name="io.delta.kernel.api" level="project" />
     <orderEntry type="library" name="io.delta.kernel.defaults" level="project" />
+    <orderEntry type="library" name="guicedee.services.sl4j" level="project" />
+    <orderEntry type="library" name="io.micrometer.core" level="project" />
   </component>
 </module>

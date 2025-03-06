@@ -10,11 +10,11 @@ import java.util.Iterator;
 
 import static kernel.generated.delta_kernel_ffi_h.*;
 
-public class RustScanFileIter implements CloseableIterator<FilteredColumnarBatch> {
+public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
 
     private final Arena arena;
     private final MemorySegment dataIter;
-    private final EngineContext context;
+    public final EngineContext context;
     private boolean isDone;
     private final MemorySegment scanDataCallback;
 
@@ -27,44 +27,36 @@ public class RustScanFileIter implements CloseableIterator<FilteredColumnarBatch
             throw new RuntimeException("Failed to create scan data iterator");
         }
         dataIter = dataIterRes.ok();
-        context = new EngineContext(scan.segment(), rootStr);
+        context = new EngineContext(engine, scan, rootStr);
         scanDataCallback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena, context), arena);
 
         fetchBatch();
     }
+
     private void fetchBatch() {
-        MemorySegment ok_res = kernel_scan_data_next(arena, dataIter, MemorySegment.NULL, scanDataCallback);
-        if (ExternResultbool.tag(ok_res) != Okbool()) {
+        MemorySegment res= kernel_scan_data_next(arena, dataIter, MemorySegment.NULL, scanDataCallback);
+        if (ExternResultbool.tag(res) != 0) {
             throw new RuntimeException("Failed to get next");
-        } else if (!ExternResultbool.ok(ok_res)) {
-            isDone = true;
         }
+        isDone = !ExternResultbool.ok(res);
     }
 
     @Override
     public boolean hasNext() {
-        if (context.queue.hasNext())
+        if (!context.queue.isEmpty()) {
             return true;
-        if (isDone)
-            return false;
-        // Fill the queue
+        }
         fetchBatch();
-        return context.queue.hasNext();
+        return !context.queue.isEmpty();
     }
 
     @Override
-    public FilteredColumnarBatch next() {
-        var out = context.queue.next();
-
-        if (!context.queue.hasNext()) {
-            fetchBatch();
-        }
-        return out;
+    public RustScanFileRow next() {
+        return context.queue.poll();
     }
 
     @Override
     public void close() throws IOException {
-        context.queue.close();
         isDone = true;
     }
 }
