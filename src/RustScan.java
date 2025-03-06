@@ -42,6 +42,7 @@ public class RustScan {
         });
     }
 
+
     public CloseableIterator<RustScanFileRow> getScanFiles(Engine engine) {
         if (!(engine instanceof  RustEngine)) {
             throw new RuntimeException("RustScan only supports Rust Engine");

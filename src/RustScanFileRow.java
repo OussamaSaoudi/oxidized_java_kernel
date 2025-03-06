@@ -27,6 +27,7 @@ public class RustScanFileRow {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+        builder.append("{\nPath: ").append(path).append("\n");
         if (dvInfo.isEmpty()) {
             builder.append("DV: null");
         } else {
@@ -42,7 +43,7 @@ public class RustScanFileRow {
         if (transform.isEmpty()) {
             builder.append("Transform: null");
         } else {
-            builder.append("Transform: ").append(transform.get()).append("\n");
+            builder.append("Transform: ").append(transform.get()).append("\n}\n");
         }
         return builder.toString();
     }

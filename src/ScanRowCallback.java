@@ -41,7 +41,6 @@ public class ScanRowCallback implements CScanCallback.Function {
         var pathStr = strPtr.getString(0).substring(0, (int) strLen);
         pathStr = context.tableRoot + pathStr;
         try (Arena arena = Arena.ofConfined()) {
-
             // Get FileStatus
 //            FileStatus fileStatus = getFileStatus(size, pathStr);
 

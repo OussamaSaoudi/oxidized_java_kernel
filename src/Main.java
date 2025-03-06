@@ -73,7 +73,7 @@ public class Main {
         }
     }
 
-    public static CloseableIterator<FilteredColumnarBatch> bench_rust(String tablePath) {
+    public static void bench_rust(String tablePath) {
         try (Arena arena = Arena.ofConfined()) {
             KernelStringSlice path = new KernelStringSlice(arena, tablePath);
             var builder = new RustEngineBuilder(arena, path);
@@ -88,34 +88,12 @@ public class Main {
 
             var scanFileIter = new RustScanFileIter(arena, engine, scan, rootStr);
 
-            Configuration hadoopConf = new Configuration();
-            var javaEngine = DefaultEngine.create(hadoopConf);
 
-            return new CloseableIterator<FilteredColumnarBatch>() {
-                CloseableIterator<FilteredColumnarBatch> out = getEmpty();
-                @Override
-                public void close() throws IOException {
-                    scanFileIter.close();
-                }
+            while (scanFileIter.hasNext()) {
+                RustScanFileRow row = scanFileIter.next();
+//                System.out.println(row);
 
-                @Override
-                public boolean hasNext() {
-                    return out.hasNext() || scanFileIter.hasNext();
-                }
-
-                @Override
-                public FilteredColumnarBatch next() {
-                    if ( out.hasNext()) {
-                        return out.next();
-                    }
-                    try {
-                        out = out.combine(read_data(javaEngine, scanFileIter.next(), scanFileIter.context));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return out.next();
-                }
-            };
+            }
         }
     }
     public static CloseableIterator<FilteredColumnarBatch> getEmpty() {
@@ -151,7 +129,6 @@ public class Main {
         // Iterate over every scanfile
         while (fileIter.hasNext()) {
             FilteredColumnarBatch scanFileColumnarBatch = fileIter.next();
-            list.add((long) scanFileColumnarBatch.hashCode());
         }
 
 
@@ -205,7 +182,7 @@ public class Main {
         int ITER = 10;
         String path = args[0];
         System.out.println("Testing for path:" + path);
-        String suite = "rust";
+        String suite = "both";
         if (args.length > 1) {
             suite = args[1];
         }
@@ -213,25 +190,6 @@ public class Main {
         // Create a meter registry with percentile support
         MeterRegistry registry = new SimpleMeterRegistry();
 
-        if (suite.equals("both") || suite.equals("rust")) {
-            // Create a timer for Rust benchmarks
-            Timer rustTimer = Timer.builder("rust.benchmark")
-                    .description("Rust benchmark execution time")
-                    .publishPercentiles(0.5, 0.90, 0.95, 0.99) // Publish median, p90, p95, p99
-                    .register(registry);
-
-            for (int i = 0; i < ITER; i++) {
-                rustTimer.record(() -> {
-                    iterateAndPrint(bench_rust(path));
-                });
-            }
-
-            // Print Rust stats
-            System.out.println("Rust stats: ");
-            printTimerStats(rustTimer);
-        }
-
-        System.out.println(list.size());
         if (suite.equals("both") || suite.equals("java")) {
             // Create a timer for Java benchmarks
             Timer javaTimer = Timer.builder("java.benchmark")
@@ -253,6 +211,25 @@ public class Main {
             System.out.println("Java stats: ");
             printTimerStats(javaTimer);
         }
+        if (suite.equals("both") || suite.equals("rust")) {
+            // Create a timer for Rust benchmarks
+            Timer rustTimer = Timer.builder("rust.benchmark")
+                    .description("Rust benchmark execution time")
+                    .publishPercentiles(0.5, 0.90, 0.95, 0.99) // Publish median, p90, p95, p99
+                    .register(registry);
+
+            for (int i = 0; i < ITER; i++) {
+                rustTimer.record(() -> {
+                    bench_rust(path);
+                });
+            }
+
+            // Print Rust stats
+            System.out.println("Rust stats: ");
+            printTimerStats(rustTimer);
+        }
+
+        System.out.println(list.size());
         System.out.println(list.size());
     }
 
