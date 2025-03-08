@@ -18,8 +18,10 @@ import io.delta.kernel.utils.CloseableIterator;
 import io.delta.kernel.utils.FileStatus;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
+import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import kernel.generated.*;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
@@ -96,6 +98,7 @@ public class Main {
             }
         }
     }
+
     public static CloseableIterator<FilteredColumnarBatch> getEmpty() {
         return new CloseableIterator<>() {
             @Override
@@ -179,81 +182,61 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int ITER = 10;
+        int ITER = 1;
         String path = args[0];
         System.out.println("Testing for path:" + path);
-        String suite = "both";
+        String suite = "rust";
         if (args.length > 1) {
             suite = args[1];
         }
 
+        // Create statistics objects to collect performance data
+        DescriptiveStatistics rustStats = new DescriptiveStatistics();
+        DescriptiveStatistics javaStats = new DescriptiveStatistics();
+
         // Create a meter registry with percentile support
-        MeterRegistry registry = new SimpleMeterRegistry();
+        if (suite.equals("both") || suite.equals("rust")) {
+            for (int i = 0; i < ITER; i++) {
+                var startTime = System.nanoTime();
+                bench_rust(path);
+                rustStats.addValue((long) ((System.nanoTime() - startTime) / 1_000_000.0));
+            }
+        }
 
         if (suite.equals("both") || suite.equals("java")) {
-            // Create a timer for Java benchmarks
-            Timer javaTimer = Timer.builder("java.benchmark")
-                    .description("Java benchmark execution time")
-                    .publishPercentiles(0.5, 0.90, 0.95, 0.99) // Publish median, p90, p95, p99
-                    .register(registry);
-
             for (int i = 0; i < ITER; i++) {
-                javaTimer.record(() -> {
-                    try {
-                        bench_java(path);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                var startTime = System.nanoTime();
+                bench_java(path);
+                javaStats.addValue((long) ((System.nanoTime() - startTime) / 1_000_000.0));
             }
-
-            // Print Java stats
-            System.out.println("Java stats: ");
-            printTimerStats(javaTimer);
-        }
-        if (suite.equals("both") || suite.equals("rust")) {
-            // Create a timer for Rust benchmarks
-            Timer rustTimer = Timer.builder("rust.benchmark")
-                    .description("Rust benchmark execution time")
-                    .publishPercentiles(0.5, 0.90, 0.95, 0.99) // Publish median, p90, p95, p99
-                    .register(registry);
-
-            for (int i = 0; i < ITER; i++) {
-                rustTimer.record(() -> {
-                    bench_rust(path);
-                });
-            }
-
-            // Print Rust stats
-            System.out.println("Rust stats: ");
-            printTimerStats(rustTimer);
         }
 
-        System.out.println(list.size());
-        System.out.println(list.size());
+        // Display statistics summary
+        System.out.println("Rust Statistics:");
+        printStatistics(rustStats);
+
+        System.out.println("\nJava Statistics:");
+        printStatistics(javaStats);
+
+        if (suite.equals("both")) {
+            Grapher.createHistogram(rustStats, javaStats);
+        }
+
     }
-
-    private static void printTimerStats(Timer timer) {
-        // Get the meter registry from the timer
-        System.out.println("\tCount: " + timer.count());
-
-        // For min, we don't have a direct method, but we can use the snapshot
-        if (timer.count() > 0) {
-            // Calculate mean and display it
-            double meanMs = timer.mean(TimeUnit.MILLISECONDS);
-            System.out.println("\tAverage: " + meanMs);
-
-            // Get max value
-            double maxMs = timer.max(TimeUnit.MILLISECONDS);
-            System.out.println("\tMax: " + maxMs);
-
-            // Get percentiles - these will only work if you've configured the timer to record them
-            System.out.println("\t90th percentile: " + timer.percentile(0.9, TimeUnit.MILLISECONDS));
-            System.out.println("\t95th percentile: " + timer.percentile(0.95, TimeUnit.MILLISECONDS));
-            System.out.println("\t99th percentile: " + timer.percentile(0.99, TimeUnit.MILLISECONDS));
-        } else {
-            System.out.println("\tNo measurements recorded");
-        }
+    /**
+     * Prints summary statistics for the given measurements
+     */
+    private static void printStatistics(DescriptiveStatistics stats) {
+        System.out.println("Mean: " + stats.getMean() + " ms");
+        System.out.println("Min: " + stats.getMin() + " ms");
+        System.out.println("Max: " + stats.getMax() + " ms");
+        System.out.println("Percentiles: ");
+        System.out.println("\tP50: " + stats.getPercentile(50) + " ms");
+        System.out.println("\tP70: " + stats.getPercentile(50) + " ms");
+        System.out.println("\tP90: " + stats.getPercentile(90) + " ms");
+        System.out.println("\tP99: " + stats.getPercentile(99) + " ms");
+        System.out.println("Std Dev: " + stats.getStandardDeviation() + " ms");
+        System.out.println("Median: " + stats.getPercentile(50) + " ms");
     }
 
 

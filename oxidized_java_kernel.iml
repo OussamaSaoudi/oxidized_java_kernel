@@ -12,5 +12,7 @@
     <orderEntry type="library" name="io.delta.kernel.defaults" level="project" />
     <orderEntry type="library" name="guicedee.services.sl4j" level="project" />
     <orderEntry type="library" name="io.micrometer.core" level="project" />
+    <orderEntry type="library" name="apache.commons.math3" level="project" />
+    <orderEntry type="library" name="jfree.jfreechart" level="project" />
   </component>
 </module>

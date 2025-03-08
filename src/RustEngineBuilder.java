@@ -13,21 +13,19 @@ public class RustEngineBuilder {
 
     public RustEngineBuilder(Arena arena, KernelStringSlice path) {
         this.arena = arena;
-        try (Arena builderArena = Arena.ofConfined()) {
-            // The error allocation function is confined. This deallocates it once this scope ends
-            MemorySegment errorFn = Utils.allocateErrorFn(builderArena);
+        // The error allocation function is confined. This deallocates it once this scope ends
+        MemorySegment errorFn = Utils.allocateErrorFn(arena);
 
-            MemorySegment builderRes = get_engine_builder(builderArena, path.segment(), errorFn);
+        MemorySegment builderRes = get_engine_builder(arena, path.segment(), errorFn);
 
-            var kernelResult = new KernelResult(builderRes);
-            if (kernelResult.isErr()) {
-                // Error
-                var err = kernelResult.err();
-                throw new RuntimeException("got error");
-            }
-
-            this.segment = kernelResult.ok();
+        var kernelResult = new KernelResult(builderRes);
+        if (kernelResult.isErr()) {
+            // Error
+            var err = kernelResult.err();
+            throw new RuntimeException("got error");
         }
+
+        this.segment = kernelResult.ok();
     }
     public RustEngineBuilder(KernelStringSlice path) {
         this(Arena.ofAuto(), path);
@@ -45,6 +43,7 @@ public class RustEngineBuilder {
 
     public RustEngine build() {
         var segment = buildSegment();
-        return new RustEngine(segment);
+        //IMPORTANT: we pass the arena so the lifetime of the error allocatino function is preserved
+        return new RustEngine(arena, segment);
     }
 }
