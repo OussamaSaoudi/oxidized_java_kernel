@@ -14,6 +14,7 @@ import io.delta.kernel.utils.CloseableIterator;
 import io.delta.kernel.utils.FileStatus;
 import kernel.generated.*;
 import kernel.generated.KernelStringSlice;
+import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
@@ -29,53 +30,50 @@ import static kernel.generated.delta_kernel_ffi_h.*;
 public class ScanRowCallback implements CScanCallback.Function {
 
     EngineContext context;
+    Arena arena;
+    ExpressionVisitor visitor;
+    DvVisitor dvVisitor;
 
-    public ScanRowCallback(EngineContext context) {
+    public ScanRowCallback(EngineContext context, Arena arena) {
+        this.arena = arena;
         this.context = context;
+        visitor =  new ExpressionVisitor(arena);
+        dvVisitor =  new DvVisitor(arena);
     }
 
     @Override
-    public void apply(MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment expression, MemorySegment partition_map) {
+    public void apply(MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment expression) {
         var strLen = KernelStringSlice.len(path);
         var strPtr = KernelStringSlice.ptr(path);
         var pathStr = strPtr.getString(0).substring(0, (int) strLen);
         pathStr = context.tableRoot + pathStr;
-        try (Arena arena = Arena.ofConfined()) {
+        try {
             // Get FileStatus
 //            FileStatus fileStatus = getFileStatus(size, pathStr);
 
 
 //            HashMap<String, String> partitionValues = getPartitionMap(partition_map, arena);
 
-            var deletionVector= getDeletionVector(dv_info, arena);
+            var deletionVector = dvVisitor.visitDeletionVector(dv_info);
 
             Optional<Expression> javaExpression = Optional.empty();
             if (!expression.equals(MemorySegment.NULL)) {
-                ExpressionVisitor expressionVisitor = new ExpressionVisitor(arena, arena, expression);
-                javaExpression = Optional.of(expressionVisitor.result);
+                javaExpression = Optional.of(visitor.visitExpression(expression));
             }
 
-            context.queue.add(new RustScanFileRow(deletionVector,  pathStr, size, javaExpression));
+//            var rustScanFile = RustScanFileRowPoolManager.getInstance().borrowObject();
+//            rustScanFile.transform = javaExpression;
+//            rustScanFile.dvInfo = deletionVector;
+//            rustScanFile.size = size;
+//            rustScanFile.path = pathStr;
+            var rustScanFile = new RustScanFileRow(deletionVector,  pathStr, size, javaExpression);
+            context.queue.add(rustScanFile);
         } catch (Throwable e) {
             System.out.println("Throw");
             throw new RuntimeException(e);
         }
     }
 
-    private static Optional<DeletionVectorDescriptor> getDeletionVector(MemorySegment dv_info, Arena arena) throws Throwable {
-        var dvVisitor = new DvVisitor();
-        var descriptor = FunctionDescriptor.ofVoid(KernelStringSlice.layout(), KernelStringSlice.layout(), ValueLayout.ADDRESS, ValueLayout.JAVA_INT, ValueLayout.JAVA_LONG);
-        var handle = upcallHandle(DvVisitor.class, "visitDeletionVector", descriptor).bindTo(dvVisitor);
-        var handler = Linker.nativeLinker().upcallStub(handle, descriptor, arena);
-
-        var downcallDescriptor = FunctionDescriptor.ofVoid(
-                ValueLayout.ADDRESS,
-                ValueLayout.ADDRESS
-        );
-        var visitDvIfPresent = Linker.nativeLinker().downcallHandle(delta_kernel_ffi_h.findOrThrow("visit_dv_if_present"), downcallDescriptor);
-        visitDvIfPresent.invokeExact(dv_info, handler);
-        return dvVisitor.getResult();
-    }
 
     private static Engine getEngine() {
         Configuration hadoopConf = new Configuration();

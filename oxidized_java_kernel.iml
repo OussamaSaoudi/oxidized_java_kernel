@@ -14,5 +14,6 @@
     <orderEntry type="library" name="io.micrometer.core" level="project" />
     <orderEntry type="library" name="apache.commons.math3" level="project" />
     <orderEntry type="library" name="jfree.jfreechart" level="project" />
+    <orderEntry type="library" name="apache.commons.pool2" level="project" />
   </component>
 </module>

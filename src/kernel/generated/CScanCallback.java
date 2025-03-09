@@ -32,14 +32,13 @@ public class CScanCallback {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        void apply(MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment transform, MemorySegment partition_map);
+        void apply(MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment transform);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
         delta_kernel_ffi_h.C_POINTER,
         KernelStringSlice.layout(),
         delta_kernel_ffi_h.C_LONG_LONG,
-        delta_kernel_ffi_h.C_POINTER,
         delta_kernel_ffi_h.C_POINTER,
         delta_kernel_ffi_h.C_POINTER,
         delta_kernel_ffi_h.C_POINTER
@@ -67,9 +66,9 @@ public class CScanCallback {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static void invoke(MemorySegment funcPtr,MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment transform, MemorySegment partition_map) {
+    public static void invoke(MemorySegment funcPtr,MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment transform) {
         try {
-             DOWN$MH.invokeExact(funcPtr, engine_context, path, size, stats, dv_info, transform, partition_map);
+             DOWN$MH.invokeExact(funcPtr, engine_context, path, size, stats, dv_info, transform);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }

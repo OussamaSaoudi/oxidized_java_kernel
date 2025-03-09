@@ -22,6 +22,9 @@ import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import kernel.generated.*;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.pool2.ObjectPool;
+import org.apache.commons.pool2.PooledObjectFactory;
+import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
@@ -93,9 +96,10 @@ public class Main {
 
             while (scanFileIter.hasNext()) {
                 RustScanFileRow row = scanFileIter.next();
-//                System.out.println(row);
 
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -132,6 +136,11 @@ public class Main {
         // Iterate over every scanfile
         while (fileIter.hasNext()) {
             FilteredColumnarBatch scanFileColumnarBatch = fileIter.next();
+            for (CloseableIterator<Row> it = scanFileColumnarBatch.getRows(); it.hasNext(); ) {
+                Row row = it.next();
+
+
+            }
 //            iterateAndPrint(scanFileColumnarBatch);
         }
 
@@ -183,10 +192,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int ITER = 1;
+        int ITER = 10;
         String path = args[0];
         System.out.println("Testing for path:" + path);
-        String suite = "rust";
+        String suite = "both";
 //        if (args.length > 1) {
 //            suite = args[1];
 //        }

@@ -4,6 +4,7 @@ import kernel.generated.AllocateErrorFn;
 import kernel.generated.EngineExpressionVisitor;
 import kernel.generated.KernelStringSlice;
 import kernel.generated.delta_kernel_ffi_h;
+import org.apache.commons.pool.ObjectPool;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
@@ -19,9 +20,11 @@ import static kernel.generated.delta_kernel_ffi_h.visit_expression;
 public class ExpressionVisitor {
     MemorySegment expressionVisitor;
     Expression result;
-    public ExpressionVisitor(SegmentAllocator allocator, Arena arena, MemorySegment expression){
-        expressionVisitor = EngineExpressionVisitor.allocate(allocator);
-        var visitor = new VisitorHandles();
+    MethodHandle visit_expression_ref;
+    VisitorHandles visitor = new VisitorHandles();
+
+    public ExpressionVisitor(Arena arena){
+        expressionVisitor = EngineExpressionVisitor.allocate(arena);
 
 
         var handle = upcallHandle(VisitorHandles.class, "make_field_list", make_field_list_descriptor()).bindTo(visitor);
@@ -138,17 +141,19 @@ public class ExpressionVisitor {
 
 
 
-        var visit_expression_ref = Linker.nativeLinker().downcallHandle(delta_kernel_ffi_h.findOrThrow("visit_expression_ref"), FunctionDescriptor.of(
+        visit_expression_ref = Linker.nativeLinker().downcallHandle(delta_kernel_ffi_h.findOrThrow("visit_expression_ref"), FunctionDescriptor.of(
             ValueLayout.JAVA_LONG,
             delta_kernel_ffi_h.C_POINTER,
             delta_kernel_ffi_h.C_POINTER
         ));
-        try {
-            long ret = (long) visit_expression_ref.invokeExact(expression, expressionVisitor);
-            result = visitor.expressionLists.get(ret).getFirst();
-        } catch (Throwable e) {
-            System.out.println("Oof :( " + e);
-        }
+    }
+
+    public Expression visitExpression(MemorySegment expression) throws Throwable {
+        visitor.clear();
+        long retIdx = (long) visit_expression_ref.invokeExact(expression, expressionVisitor);
+        Expression out = visitor.expressionLists.get(retIdx).getFirst();
+        visitor.clear();
+        return out;
     }
 
 
@@ -186,6 +191,11 @@ public class ExpressionVisitor {
         HashMap<Long, ArrayList<Expression>> expressionLists= new HashMap<>();
         HashMap<Integer, Expression> expressions = new HashMap<>();
         long counter = 0;
+        public void clear() {
+            expressionLists.clear();
+            counter = 0;
+            expressions.clear();
+        }
 //        /// An opaque engine state pointer
 //        pub data: *mut c_void,
 //        /// Creates a new expression list, optionally reserving capacity up front

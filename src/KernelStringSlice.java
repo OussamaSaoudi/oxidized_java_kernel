@@ -30,11 +30,9 @@ public class KernelStringSlice {
     /** The arena associated with this KernelStringSlice MemorySegment */
     private final Arena arena;
 
-    public KernelStringSlice(Arena arena, MemorySegment segment) {
-        this.arena = arena;
+    public KernelStringSlice(MemorySegment segment) {
+        this.arena = null;
         this.segment = segment;
-        // TODO: Put cleanup method
-        this.segment.reinterpret(arena, null);
     }
     public KernelStringSlice(Arena arena, String string) {
         this.arena = arena;
@@ -92,9 +90,14 @@ public class KernelStringSlice {
         return this.segment;
     }
 
+    public static String segmentToString(MemorySegment segment) {
+        var ptr = kernel.generated.KernelStringSlice.ptr(segment);
+        var len = kernel.generated.KernelStringSlice.len(segment);
+        return ptr.reinterpret(len + 1).getString(0);
+    }
+
     @Override
     public String toString() {
-        var segment = ptr();
-        return segment.reinterpret(len() + 1).getString(0);
+        return segmentToString(this.segment);
     }
 }

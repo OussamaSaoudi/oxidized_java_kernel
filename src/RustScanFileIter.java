@@ -2,6 +2,7 @@ import io.delta.kernel.data.FilteredColumnarBatch;
 import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.ExternResultbool;
 import kernel.generated.kernel_scan_data_next$engine_visitor;
+import org.apache.commons.pool2.impl.GenericObjectPool;
 
 import java.io.IOException;
 import java.lang.foreign.Arena;
@@ -15,7 +16,7 @@ public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
     private final Arena arena;
     private final MemorySegment dataIter;
     public final EngineContext context;
-    private boolean isDone;
+    public boolean isDone;
     private final MemorySegment scanDataCallback;
 
     public RustScanFileIter(Arena arena, RustEngine engine, RustScan scan, String rootStr) {
@@ -33,7 +34,7 @@ public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
         fetchBatch();
     }
 
-    private void fetchBatch() {
+    public void fetchBatch() {
         MemorySegment res= kernel_scan_data_next(arena, dataIter, MemorySegment.NULL, scanDataCallback);
         if (ExternResultbool.tag(res) != 0) {
             throw new RuntimeException("Failed to get next");
