@@ -45,7 +45,7 @@ public class ScanRowCallback implements CScanCallback.Function {
 //            FileStatus fileStatus = getFileStatus(size, pathStr);
 
 
-            HashMap<String, String> partitionValues = getPartitionMap(partition_map, arena);
+//            HashMap<String, String> partitionValues = getPartitionMap(partition_map, arena);
 
             var deletionVector= getDeletionVector(dv_info, arena);
 
@@ -55,7 +55,7 @@ public class ScanRowCallback implements CScanCallback.Function {
                 javaExpression = Optional.of(expressionVisitor.result);
             }
 
-            context.queue.add(new RustScanFileRow(deletionVector, partitionValues, pathStr, size, javaExpression));
+            context.queue.add(new RustScanFileRow(deletionVector,  pathStr, size, javaExpression));
         } catch (Throwable e) {
             System.out.println("Throw");
             throw new RuntimeException(e);

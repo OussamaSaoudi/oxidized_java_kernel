@@ -132,6 +132,7 @@ public class Main {
         // Iterate over every scanfile
         while (fileIter.hasNext()) {
             FilteredColumnarBatch scanFileColumnarBatch = fileIter.next();
+//            iterateAndPrint(scanFileColumnarBatch);
         }
 
 
@@ -186,9 +187,9 @@ public class Main {
         String path = args[0];
         System.out.println("Testing for path:" + path);
         String suite = "rust";
-        if (args.length > 1) {
-            suite = args[1];
-        }
+//        if (args.length > 1) {
+//            suite = args[1];
+//        }
 
         // Create statistics objects to collect performance data
         DescriptiveStatistics rustStats = new DescriptiveStatistics();

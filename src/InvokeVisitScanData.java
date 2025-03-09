@@ -23,7 +23,10 @@ public class InvokeVisitScanData implements kernel_scan_data_next$engine_visitor
     //        // void (*engine_visitor)(NullableCvoid, HandleExclusiveEngineData, struct KernelBoolSlice, const struct CTransforms *)
     @Override
     public void apply(MemorySegment context, MemorySegment engineData, MemorySegment selectionVector, MemorySegment transforms) {
+
+        var startTime = System.nanoTime();
         visit_scan_data(engineData, selectionVector, transforms, context, callback);
+        System.out.println("Java visit row: " + (long) ((System.nanoTime() - startTime) / 1_000_000.0));
         free_bool_slice(selectionVector);
         free_engine_data(engineData);
     }
