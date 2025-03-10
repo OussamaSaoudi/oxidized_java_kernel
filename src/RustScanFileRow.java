@@ -27,23 +27,23 @@ public class RustScanFileRow {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("{\nPath: ").append(path).append("\n");
+        builder.append("{\n\tPath: ").append(path).append("\n");
         if (dvInfo.isEmpty()) {
-            builder.append("DV: null");
+            builder.append("\tDV: null");
         } else {
-            builder.append("DV: ").append(dvInfo.get().toString());
+            builder.append("\tDV: ").append(dvInfo.get().toString());
         }
-        builder.append('\n');
+//        builder.append('\n');
 //        builder.append("Partitions:");
 //        for (String key : partitionMap.keySet()) {
 //            builder.append("\n\t").append(key).append(" -> ").append(partitionMap.get(key));
 //        }
         builder.append('\n');
-        builder.append("Size: ").append(size).append("\n");
+        builder.append("\tSize: ").append(size).append("\n");
         if (transform.isEmpty()) {
-            builder.append("Transform: null");
+            builder.append("\tTransform: null");
         } else {
-            builder.append("Transform: ").append(transform.get()).append("\n}\n");
+            builder.append("\tTransform: ").append(transform.get()).append("\n}\n");
         }
         return builder.toString();
     }

@@ -8,6 +8,7 @@ import io.delta.kernel.defaults.internal.data.DefaultColumnarBatch;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.defaults.internal.expressions.DefaultExpressionEvaluator;
 import io.delta.kernel.expressions.ExpressionEvaluator;
+import io.delta.kernel.internal.InternalScanFileUtils;
 import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
 import io.delta.kernel.internal.data.SelectionColumnVector;
 import io.delta.kernel.internal.deletionvectors.DeletionVectorUtils;
@@ -52,19 +53,10 @@ public class Main {
 
         while (filteredColumnBatch.hasNext()) {
             FilteredColumnarBatch logicalData = filteredColumnBatch.next();
-            ColumnarBatch dataBatch = logicalData.getData();
-//                System.out.println("Data schema: " + dataBatch.getSchema());
-//                System.out.println("Got data batch: " + dataBatch.getSize());
-
-            // Not all rows in `dataBatch` are in the selected output.
-            // An optional selection vector determines whether a row with a
-            // specific row index is in the final output or not.
-            Optional<ColumnVector> selectionVector = logicalData.getSelectionVector();
-
             // access the data for the column at ordinal 0
             for (CloseableIterator<Row> it = logicalData.getRows(); it.hasNext(); ) {
-                Row row = it.next();
-//                RowPrinter.printRow(row);
+                Row scanFile= it.next();
+                RowPrinter.printRow(scanFile);
             }
 //                for (int rowIndex = 0; rowIndex < column0.getSize(); rowIndex++) {
 //                    // check if the row is selected or not
@@ -93,10 +85,12 @@ public class Main {
 
             var scanFileIter = new RustScanFileIter(arena, engine, scan, rootStr);
 
-
+            // This is for a no-gc bench
+//            while (!scanFileIter.isDone) {
+//                scanFileIter.fetchBatch();
+//            }
             while (scanFileIter.hasNext()) {
                 RustScanFileRow row = scanFileIter.next();
-
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -137,9 +131,16 @@ public class Main {
         while (fileIter.hasNext()) {
             FilteredColumnarBatch scanFileColumnarBatch = fileIter.next();
             for (CloseableIterator<Row> it = scanFileColumnarBatch.getRows(); it.hasNext(); ) {
-                Row row = it.next();
+                Row scanFile = it.next();
 
-
+                DeletionVectorDescriptor dv =
+                        InternalScanFileUtils.getDeletionVectorDescriptorFromRow(scanFile);
+                FileStatus status = InternalScanFileUtils.getAddFileStatus(scanFile);
+                String dataPath = status.getPath();
+                long size = status.getSize();
+                Map<String, String> partitionMap = InternalScanFileUtils.getPartitionValues(scanFile);
+                JavaScanFileRow javaScanFileRow = new JavaScanFileRow(Optional.ofNullable(dv), dataPath, size, partitionMap);
+                System.out.println(javaScanFileRow);
             }
 //            iterateAndPrint(scanFileColumnarBatch);
         }
@@ -192,13 +193,13 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int ITER = 10;
+        int ITER = 1;
         String path = args[0];
         System.out.println("Testing for path:" + path);
         String suite = "both";
-//        if (args.length > 1) {
-//            suite = args[1];
-//        }
+        if (args.length > 1) {
+            suite = args[1];
+        }
 
         // Create statistics objects to collect performance data
         DescriptiveStatistics rustStats = new DescriptiveStatistics();

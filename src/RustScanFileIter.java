@@ -18,6 +18,7 @@ public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
     public final EngineContext context;
     public boolean isDone;
     private final MemorySegment scanDataCallback;
+    InvokeVisitScanData invokeVisitScanData;
 
     public RustScanFileIter(Arena arena, RustEngine engine, RustScan scan, String rootStr) {
         this.arena = arena;
@@ -29,7 +30,8 @@ public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
         }
         dataIter = dataIterRes.ok();
         context = new EngineContext(engine, scan, rootStr);
-        scanDataCallback = kernel_scan_data_next$engine_visitor.allocate(new InvokeVisitScanData(arena, context), arena);
+        invokeVisitScanData = new InvokeVisitScanData(arena, context);
+        scanDataCallback = kernel_scan_data_next$engine_visitor.allocate(invokeVisitScanData, arena);
 
         fetchBatch();
     }
