@@ -37,9 +37,8 @@
    5. Add `--enable-native-access=ALL-UNNAMED ` to the JVM options. (You can get VM options by clicking on the Modify options button.)
    6. In the Program arguments field, specify the path to the table, for example: 
    `/Users/oussama.saoudi/pyspark_playground/test_2000_large_commits`
-      Build and Run the Project:
+     
 
-5) **Ensure** the project compiles without errors by selecting `Build | Build Project`.
 6) **Run** the application using the run configuration you created by clicking the Run button or selecting `Run | Run 'Run Main'`.
 7) **pray**. 
 
