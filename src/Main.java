@@ -83,7 +83,7 @@ public class Main {
 
             var scan = new RustScan(arena, snapshot, engine, null);
 
-            var scanFileIter = new RustScanFileIter(arena, engine, scan, rootStr);
+            var scanFileIter = new RustScanFileIter(arena, engine, scan, rootStr, snapshot);
 
             // This is for a no-gc bench
 //            while (!scanFileIter.isDone) {
@@ -140,9 +140,7 @@ public class Main {
                 long size = status.getSize();
                 Map<String, String> partitionMap = InternalScanFileUtils.getPartitionValues(scanFile);
                 JavaScanFileRow javaScanFileRow = new JavaScanFileRow(Optional.ofNullable(dv), dataPath, size, partitionMap);
-                System.out.println(javaScanFileRow);
             }
-//            iterateAndPrint(scanFileColumnarBatch);
         }
 
 

@@ -47,7 +47,7 @@ public class RustScan {
         if (!(engine instanceof  RustEngine)) {
             throw new RuntimeException("RustScan only supports Rust Engine");
         }
-        return new RustScanFileIter(arena, (RustEngine) engine, this, snapshot.tableRoot());
+        return new RustScanFileIter(arena, (RustEngine) engine, this, snapshot.tableRoot(), snapshot);
     }
 
     public Optional<Predicate> getRemainingFilter() {

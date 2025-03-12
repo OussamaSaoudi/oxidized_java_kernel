@@ -30,7 +30,7 @@ public class EngineContext {
     Engine javaEngine;
 
     // "context" argument, and then pass it back when calling a callback.
-    EngineContext(RustEngine engine, RustScan scan, String tableRoot) {
+    EngineContext(RustEngine engine, RustScan scan, String tableRoot, RustSnapshot snapshot) {
         // Set the engine so we can use it in the Scan Row Callback
 
         this.engine = engine;
@@ -57,7 +57,7 @@ public class EngineContext {
         javaEngine = DefaultEngine.create(new Configuration());
 
         // Get Partition Columns
-        MemorySegment partition_cols = get_partition_columns(globalScanState);
+        MemorySegment partition_cols = get_partition_columns(snapshot.segment());
         var iter = new StringSliceIter();
         var descriptor = FunctionDescriptor.ofVoid(ValueLayout.ADDRESS, KernelStringSlice.layout());
         var handle = upcallHandle(StringSliceIter.class, "apply", descriptor).bindTo(iter);
