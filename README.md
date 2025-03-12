@@ -13,3 +13,12 @@
 The final configuration should look like this: 
 
 ![img.png](img.png)
+
+
+For how to use JProfiler:
+1) Download JProfiler
+2) Download the JProfiler plugin (This may require a restart.). Make sure you are on an updated Intellij, because the plugin can break on older versions.
+3) Get license for JProfiler from `go/jprofiler`
+4) With the plugin enabled, you should be able to run main with JProfiler attached.
+
+![img_1.png](img_1.png)
