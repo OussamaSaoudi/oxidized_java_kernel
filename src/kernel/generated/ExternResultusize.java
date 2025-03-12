@@ -39,11 +39,11 @@ public class ExternResultusize {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_LONG.withName("ok")
-            ).withName("$anon$666:5"),
+            ).withName("$anon$749:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$669:5")
-        ).withName("$anon$665:3")
+            ).withName("$anon$752:5")
+        ).withName("$anon$748:3")
     ).withName("ExternResultusize");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultusize {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final OfLong ok$LAYOUT = (OfLong)$LAYOUT.select(groupElement("$anon$665:3"), groupElement("$anon$666:5"), groupElement("ok"));
+    private static final OfLong ok$LAYOUT = (OfLong)$LAYOUT.select(groupElement("$anon$748:3"), groupElement("$anon$749:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultusize {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$665:3"), groupElement("$anon$669:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$748:3"), groupElement("$anon$752:5"), groupElement("err"));
 
     /**
      * Layout for field:

@@ -12,12 +12,12 @@
           <option name="linkRegexp" value="https://$0" />
         </IssueNavigationLink>
         <IssueNavigationLink>
-          <option name="issueRegexp" value="(?&lt;dbCompanionUniversePrLink&gt;)\bdatabricks\/universe#(\d+)" />
-          <option name="linkRegexp" value="https://github.com/databricks/universe/pull/$2" />
+          <option name="issueRegexp" value="(?&lt;dbCompanionUniversePrLink&gt;)\bdatabricks(?&gt;-eng)?\/universe#(\d+)" />
+          <option name="linkRegexp" value="https://github.com/databricks-eng/universe/pull/$2" />
         </IssueNavigationLink>
         <IssueNavigationLink>
-          <option name="issueRegexp" value="(?&lt;dbCompanionRuntimePrLink&gt;)\bdatabricks\/runtime#(\d+)" />
-          <option name="linkRegexp" value="https://github.com/databricks/runtime/pull/$2" />
+          <option name="issueRegexp" value="(?&lt;dbCompanionRuntimePrLink&gt;)\bdatabricks(?&gt;-eng)?\/runtime#(\d+)" />
+          <option name="linkRegexp" value="https://github.com/databricks-eng/runtime/pull/$2" />
         </IssueNavigationLink>
         <IssueNavigationLink>
           <option name="issueRegexp" value="(?&lt;dbCompanionKubeContextLink&gt;)\b(?:dev|staging|prod)-(?:aws|azure|gcp)-[\w-]+" />

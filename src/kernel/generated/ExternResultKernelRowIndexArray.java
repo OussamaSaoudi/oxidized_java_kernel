@@ -39,11 +39,11 @@ public class ExternResultKernelRowIndexArray {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 KernelRowIndexArray.layout().withName("ok")
-            ).withName("$anon$1187:5"),
+            ).withName("$anon$1270:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$1190:5")
-        ).withName("$anon$1186:3")
+            ).withName("$anon$1273:5")
+        ).withName("$anon$1269:3")
     ).withName("ExternResultKernelRowIndexArray");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultKernelRowIndexArray {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final GroupLayout ok$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$1186:3"), groupElement("$anon$1187:5"), groupElement("ok"));
+    private static final GroupLayout ok$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$1269:3"), groupElement("$anon$1270:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultKernelRowIndexArray {
         MemorySegment.copy(fieldValue, 0L, struct, ok$OFFSET, ok$LAYOUT.byteSize());
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1186:3"), groupElement("$anon$1190:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$1269:3"), groupElement("$anon$1273:5"), groupElement("err"));
 
     /**
      * Layout for field:

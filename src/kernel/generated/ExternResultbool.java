@@ -39,11 +39,11 @@ public class ExternResultbool {
         MemoryLayout.unionLayout(
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_BOOL.withName("ok")
-            ).withName("$anon$532:5"),
+            ).withName("$anon$558:5"),
             MemoryLayout.structLayout(
                 delta_kernel_ffi_h.C_POINTER.withName("err")
-            ).withName("$anon$535:5")
-        ).withName("$anon$531:3")
+            ).withName("$anon$561:5")
+        ).withName("$anon$557:3")
     ).withName("ExternResultbool");
 
     /**
@@ -97,7 +97,7 @@ public class ExternResultbool {
         struct.set(tag$LAYOUT, tag$OFFSET, fieldValue);
     }
 
-    private static final OfBoolean ok$LAYOUT = (OfBoolean)$LAYOUT.select(groupElement("$anon$531:3"), groupElement("$anon$532:5"), groupElement("ok"));
+    private static final OfBoolean ok$LAYOUT = (OfBoolean)$LAYOUT.select(groupElement("$anon$557:3"), groupElement("$anon$558:5"), groupElement("ok"));
 
     /**
      * Layout for field:
@@ -141,7 +141,7 @@ public class ExternResultbool {
         struct.set(ok$LAYOUT, ok$OFFSET, fieldValue);
     }
 
-    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$531:3"), groupElement("$anon$535:5"), groupElement("err"));
+    private static final AddressLayout err$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$557:3"), groupElement("$anon$561:5"), groupElement("err"));
 
     /**
      * Layout for field:

@@ -22,7 +22,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  */
 public class KernelStringSlice {
 
-    KernelStringSlice() {
+    public KernelStringSlice() {
         // Should not be called directly
     }
 

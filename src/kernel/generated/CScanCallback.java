@@ -19,7 +19,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     uintptr_t len;
  * }, int64_t, const struct Stats {
  *     uint64_t num_records;
- * } *, const struct DvInfo *, const struct CStringMap *)
+ * } *, const struct DvInfo *, const struct Expression *, const struct CStringMap *)
  * }
  */
 public class CScanCallback {
@@ -32,7 +32,7 @@ public class CScanCallback {
      * The function pointer signature, expressed as a functional interface
      */
     public interface Function {
-        void apply(MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment partition_map);
+        void apply(MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment transform);
     }
 
     private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
@@ -66,9 +66,9 @@ public class CScanCallback {
     /**
      * Invoke the upcall stub {@code funcPtr}, with given parameters
      */
-    public static void invoke(MemorySegment funcPtr,MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment partition_map) {
+    public static void invoke(MemorySegment funcPtr,MemorySegment engine_context, MemorySegment path, long size, MemorySegment stats, MemorySegment dv_info, MemorySegment transform) {
         try {
-             DOWN$MH.invokeExact(funcPtr, engine_context, path, size, stats, dv_info, partition_map);
+             DOWN$MH.invokeExact(funcPtr, engine_context, path, size, stats, dv_info, transform);
         } catch (Throwable ex$) {
             throw new AssertionError("should not reach here", ex$);
         }
