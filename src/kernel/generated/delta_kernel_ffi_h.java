@@ -55,7 +55,7 @@ public class delta_kernel_ffi_h {
         };
     }
 
-    static final SymbolLookup SYMBOL_LOOKUP = SymbolLookup.libraryLookup("/Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/release/libdelta_kernel_ffi.dylib", LIBRARY_ARENA)
+    static final SymbolLookup SYMBOL_LOOKUP = SymbolLookup.libraryLookup("delta-kernel-rs/target/release/libdelta_kernel_ffi.dylib", LIBRARY_ARENA)
             .or(SymbolLookup.loaderLookup())
             .or(Linker.nativeLinker().defaultLookup());
 

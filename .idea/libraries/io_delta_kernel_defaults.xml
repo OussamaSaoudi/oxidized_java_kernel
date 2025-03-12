@@ -29,7 +29,29 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../.ideaLibSources/delta-kernel-api-3.3.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/delta-kernel-defaults-3.3.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/delta-kernel-api-3.3.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/RoaringBitmap-0.9.25-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/shims-0.9.25-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.36-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.13.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.13.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-datatype-jdk8-2.13.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/delta-storage-3.3.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hadoop-client-api-3.3.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/snappy-java-1.1.8.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.1.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsr305-3.0.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.13.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parquet-hadoop-1.12.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parquet-column-1.12.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parquet-encoding-1.12.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parquet-format-structures-1.12.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parquet-common-1.12.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parquet-jackson-1.12.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-pool-1.6-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/zstd-jni-1.5.0-1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/audience-annotations-0.13.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
