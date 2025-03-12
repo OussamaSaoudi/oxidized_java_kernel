@@ -28,6 +28,8 @@
       <root url="jar://$PROJECT_DIR$/lib/audience-annotations-0.13.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.ideaLibSources/delta-kernel-api-3.3.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

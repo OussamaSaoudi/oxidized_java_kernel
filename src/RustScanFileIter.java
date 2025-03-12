@@ -20,7 +20,7 @@ public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
     private final MemorySegment scanDataCallback;
     InvokeVisitScanData invokeVisitScanData;
 
-    public RustScanFileIter(Arena arena, RustEngine engine, RustScan scan, String rootStr) {
+    public RustScanFileIter(Arena arena, RustEngine engine, RustScan scan, String rootStr, RustSnapshot snapshot) {
         this.arena = arena;
         this.isDone = false;
         var dataIterRes = new KernelResult(kernel_scan_data_init(arena, engine.segment(), scan.segment()));
@@ -29,7 +29,7 @@ public class RustScanFileIter implements CloseableIterator<RustScanFileRow> {
             throw new RuntimeException("Failed to create scan data iterator");
         }
         dataIter = dataIterRes.ok();
-        context = new EngineContext(engine, scan, rootStr);
+        context = new EngineContext(engine, scan, rootStr, snapshot);
         invokeVisitScanData = new InvokeVisitScanData(arena, context);
         scanDataCallback = kernel_scan_data_next$engine_visitor.allocate(invokeVisitScanData, arena);
 
