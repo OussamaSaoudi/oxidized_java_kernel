@@ -1,17 +1,50 @@
 # How to Build
-1) Download Intellij
-2) `git submodule update --init --recursive` from repository root
-3) Run `cargo build  -p delta_kernel_ffi --release --features default-engine` from delta-kernel-rs root
-3) In Intellij, download jdk 22+ (I use Amazon corretto). Go to project structure -> project settings. Set the SDK. If it's not there, click edit, then `+`, then download JDK.
-![img_2.png](img_2.png)
-4) Create a new run configuration  for `Main.main`.
-5) Add `--enable-native-access=ALL-UNNAMED ` to the JVM options. You can get VM options by clicking on the Modify options button.
-6) Add a path to a table in the run configuration ex: `/Users/oussama.saoudi/pyspark_playground/test_2000_large_commits`. You can unzip the `test_2000_commits.zip` from the root repository, and provide a path to that.
-7) Run Main.main from inside intellij
-8) pray.
+
+## Prerequisites
+- Install [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
+- Install [Rust](https://www.rust-lang.org/) and ensure `cargo` is available
+- Install [JDK 22/23](https://aws.amazon.com/corretto/) (Amazon Corretto recommended)
 
 
-The final configuration should look like this: 
+## Steps
+1. **Clone the repository and update submodules**
+    
+    Run the following command from the repository root:
+   ```sh
+   git submodule update --init --recursive
+   ```
+2) **Build the Rust components**
+
+    Navigate to the `delta-kernel-rs` root and build with:
+    ```sh
+    cargo build -p delta_kernel_ffi --release --features default-engine
+    ```
+
+3) **Set up IntelliJ IDEA**
+   1. Open the project in IntelliJ.
+   2. Download and configure JDK 22/23 (Amazon Corretto recommended).
+   3. Go to project structure -> project settings. Set the SDK. If it's not there, click edit, then `+`, then download JDK.
+   
+     ![img_2.png](img_2.png)
+
+
+4) **Create a new Run Configuration in IntelliJ**
+
+   1. Navigate to `Run | Edit Configurations`.
+   2. Click the + icon and select Application to create a new application configuration.
+   3. Name the configuration appropriately, e.g., "Run Main". 
+   4. Set the Main class to `Main`. You can use the class search feature (magnifying glass icon) to locate it.
+   5. Add `--enable-native-access=ALL-UNNAMED ` to the JVM options. (You can get VM options by clicking on the Modify options button.)
+   6. In the Program arguments field, specify the path to the table, for example: 
+   `/Users/oussama.saoudi/pyspark_playground/test_2000_large_commits`
+      Build and Run the Project:
+
+5) **Ensure** the project compiles without errors by selecting `Build | Build Project`.
+6) **Run** the application using the run configuration you created by clicking the Run button or selecting `Run | Run 'Run Main'`.
+7) **pray**. 
+
+
+**The final configuration should look like this:**
 
 ![img.png](img.png)
 
