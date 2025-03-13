@@ -1,7 +1,4 @@
-import io.delta.kernel.expressions.And;
-import io.delta.kernel.expressions.Column;
-import io.delta.kernel.expressions.Expression;
-import io.delta.kernel.expressions.Literal;
+import io.delta.kernel.expressions.*;
 import kernel.generated.AllocateErrorFn;
 import kernel.generated.EnginePredicate;
 import kernel.generated.KernelStringSlice;
@@ -25,7 +22,7 @@ public class PredicateVisitor implements EnginePredicate.visitor.Function {
 
     @Override
     public long apply(MemorySegment predicatePtr, MemorySegment statePtr) {
-        // This is the entry point when the Rust code calls our visitor
+        // This is the entry point where the Rust code calls our visitor
         return convertExpression(rootExpression, statePtr);
     }
 
@@ -259,18 +256,18 @@ public class PredicateVisitor implements EnginePredicate.visitor.Function {
     }
 
 
-    // Helper method to use this with your existing code
+    // Helper method to use this with the existing code
     public static MemorySegment createEnginePredicate(Expression expression, Arena arena) {
         // Create the visitor
         PredicateVisitor visitor = new PredicateVisitor(expression);
 
-        // Allocate the engine predicate
+        // Allocate memory for the engine predicate
         MemorySegment enginePredicate = FFIExpression.allocate(arena);
 
-        // Create the function pointer for  the visitor
+        // Create the function pointer for the visitor
         MemorySegment visitorFnPtr = EnginePredicate.visitor.allocate(visitor, arena);
 
-        // Set the visitor function in the engine predicate
+        // Set the visitor function in the enginePredicate
         FFIExpression.visitor(enginePredicate, visitorFnPtr);
 
         // Set the predicate pointer to NULL (it doesn't seem to be used in the Rust code)
