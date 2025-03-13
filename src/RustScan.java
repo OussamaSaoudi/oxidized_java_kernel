@@ -21,9 +21,14 @@ public class RustScan {
         this.snapshot = snapshot;
         // Create Java expression
         Expression javaExpr = Literal.ofBoolean(true);
+        Column column = new Column("repository");
+        Literal nameLiteral = Literal.ofString("build");
+
+        // Create an equality predicate: column = "name"
+        Predicate equalityPredicate = new Predicate("=", column, nameLiteral);
 
         // Create the engine predicate
-        MemorySegment enginePredicate = PredicateVisitor.createEnginePredicate(javaExpr, arena);
+        MemorySegment enginePredicate = PredicateVisitor.createEnginePredicate(equalityPredicate, arena);
 
         var scanRes = new KernelResult(scan(arena, snapshot.segment(), engine.segment(), enginePredicate));
         if (scanRes.isErr()) {

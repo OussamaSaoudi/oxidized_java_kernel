@@ -7,7 +7,10 @@ import io.delta.kernel.defaults.engine.DefaultEngine;
 import io.delta.kernel.defaults.internal.data.DefaultColumnarBatch;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.defaults.internal.expressions.DefaultExpressionEvaluator;
+import io.delta.kernel.expressions.Column;
 import io.delta.kernel.expressions.ExpressionEvaluator;
+import io.delta.kernel.expressions.Literal;
+import io.delta.kernel.expressions.Predicate;
 import io.delta.kernel.internal.InternalScanFileUtils;
 import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
 import io.delta.kernel.internal.data.SelectionColumnVector;
@@ -115,6 +118,7 @@ public class Main {
         var engine = DefaultEngine.create(hadoopConf);
         var table = Table.forPath(engine, path);
         var snapshot = table.getLatestSnapshot(engine);
+        var predicate = new Predicate("=", new Column("repository"), Literal.ofString("build") );
         var scanBuilder = snapshot.getScanBuilder(engine);
         var scan = scanBuilder.build();
         CloseableIterator<FilteredColumnarBatch> fileIter = scan.getScanFiles(engine);
