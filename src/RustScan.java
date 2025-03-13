@@ -2,6 +2,8 @@ import io.delta.kernel.Scan;
 import io.delta.kernel.data.FilteredColumnarBatch;
 import io.delta.kernel.data.Row;
 import io.delta.kernel.engine.Engine;
+import io.delta.kernel.expressions.Column;
+import io.delta.kernel.expressions.Expression;
 import io.delta.kernel.expressions.Predicate;
 import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.EnginePredicate;
@@ -19,9 +21,13 @@ public class RustScan {
     private final RustSnapshot snapshot;
     public RustScan(Arena arena, RustSnapshot snapshot, RustEngine engine, FFIExpression predicate) {
         this.snapshot = snapshot;
-        // TODO: Replace enginePredicate with something that converts Java Kernel Expression to Rust
-        var enginePredicate = EnginePredicate.allocate(arena);
-        var visitor = EnginePredicate.visitor.allocate(new PredicateVisitor(), arena);
+        // Create your Java expression
+        Expression javaExpr = new Column("path");
+
+        // Create the engine predicate
+        MemorySegment enginePredicate = PredicateVisitor.createEnginePredicate(javaExpr, arena);
+
+        var visitor = EnginePredicate.visitor.allocate(new PredicateVisitor((Expression) predicate), arena);
         EnginePredicate.visitor(enginePredicate, visitor);
 
         var scanRes = new KernelResult(scan(arena, snapshot.segment(), engine.segment(), enginePredicate));

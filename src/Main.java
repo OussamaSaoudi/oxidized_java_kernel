@@ -37,14 +37,6 @@ import java.util.concurrent.TimeUnit;
 import static io.delta.kernel.internal.util.Utils.singletonCloseableIterator;
 
 
-class PredicateVisitor implements EnginePredicate.visitor.Function {
-    @Override
-    public long apply(MemorySegment _x0, MemorySegment _x1) {
-        return 0;
-    }
-}
-
-
 public class Main {
 
     static ArrayList<Long> list = new ArrayList<>();
@@ -80,6 +72,8 @@ public class Main {
 
 
             var rootStr = snapshot.tableRoot();
+
+//            var predicate = FFIExpression.predicate()
 
             var scan = new RustScan(arena, snapshot, engine, null);
 
@@ -207,7 +201,7 @@ public class Main {
         if (suite.equals("both") || suite.equals("rust")) {
             for (int i = 0; i < ITER; i++) {
                 var startTime = System.nanoTime();
-                bench_rust(path);
+                 bench_rust(path);
                 rustStats.addValue((long) ((System.nanoTime() - startTime) / 1_000_000.0));
             }
         }
