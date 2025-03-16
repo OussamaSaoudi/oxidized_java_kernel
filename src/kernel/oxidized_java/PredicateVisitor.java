@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.expressions.*;
 import kernel.generated.AllocateErrorFn;
 import kernel.generated.EnginePredicate;
@@ -5,7 +7,6 @@ import kernel.generated.KernelStringSlice;
 import kernel.generated.delta_kernel_ffi_h;
 
 import java.lang.foreign.*;
-import java.lang.invoke.MethodHandle;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
