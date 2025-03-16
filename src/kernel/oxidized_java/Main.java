@@ -9,7 +9,10 @@ import io.delta.kernel.defaults.engine.DefaultEngine;
 import io.delta.kernel.defaults.internal.data.DefaultColumnarBatch;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.defaults.internal.expressions.DefaultExpressionEvaluator;
+import io.delta.kernel.expressions.Column;
 import io.delta.kernel.expressions.ExpressionEvaluator;
+import io.delta.kernel.expressions.Literal;
+import io.delta.kernel.expressions.Predicate;
 import io.delta.kernel.internal.InternalScanFileUtils;
 import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
 import io.delta.kernel.internal.data.SelectionColumnVector;
@@ -29,14 +32,6 @@ import java.lang.foreign.MemorySegment;
 import java.util.*;
 
 import static io.delta.kernel.internal.util.Utils.singletonCloseableIterator;
-
-
-class PredicateVisitor implements EnginePredicate.visitor.Function {
-    @Override
-    public long apply(MemorySegment _x0, MemorySegment _x1) {
-        return 0;
-    }
-}
 
 
 public class Main {
@@ -74,6 +69,8 @@ public class Main {
 
 
             var rootStr = snapshot.tableRoot();
+
+//            var predicate = FFIExpression.predicate()
 
             var scan = new RustScan(arena, snapshot, engine, null);
 
@@ -115,6 +112,7 @@ public class Main {
         var engine = DefaultEngine.create(hadoopConf);
         var table = Table.forPath(engine, path);
         var snapshot = table.getLatestSnapshot(engine);
+        var predicate = new Predicate("=", new Column("repository"), Literal.ofString("build") );
         var scanBuilder = snapshot.getScanBuilder(engine);
         var scan = scanBuilder.build();
         CloseableIterator<FilteredColumnarBatch> fileIter = scan.getScanFiles(engine);
@@ -201,7 +199,7 @@ public class Main {
         if (suite.equals("both") || suite.equals("rust")) {
             for (int i = 0; i < ITER; i++) {
                 var startTime = System.nanoTime();
-                bench_rust(path);
+                 bench_rust(path);
                 rustStats.addValue((long) ((System.nanoTime() - startTime) / 1_000_000.0));
             }
         }

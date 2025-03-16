@@ -2,7 +2,7 @@ package kernel.oxidized_java;
 
 import io.delta.kernel.data.Row;
 import io.delta.kernel.engine.Engine;
-import io.delta.kernel.expressions.Predicate;
+import io.delta.kernel.expressions.*;
 import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.EnginePredicate;
 import kernel.generated.delta_kernel_ffi_h;
@@ -19,10 +19,16 @@ public class RustScan {
     private final RustSnapshot snapshot;
     public RustScan(Arena arena, RustSnapshot snapshot, RustEngine engine, FFIExpression predicate) {
         this.snapshot = snapshot;
-        // TODO: Replace enginePredicate with something that converts Java Kernel Expression to Rust
-        var enginePredicate = EnginePredicate.allocate(arena);
-        var visitor = EnginePredicate.visitor.allocate(new PredicateVisitor(), arena);
-        EnginePredicate.visitor(enginePredicate, visitor);
+        // Create Java expression
+        Expression javaExpr = Literal.ofBoolean(true);
+        Column column = new Column("repository");
+        Literal nameLiteral = Literal.ofString("build");
+
+        // Create an equality predicate: column = "name"
+        Predicate equalityPredicate = new Predicate("=", column, nameLiteral);
+
+        // Create the engine predicate
+        MemorySegment enginePredicate = PredicateVisitor.createEnginePredicate(equalityPredicate, arena);
 
         var scanRes = new KernelResult(scan(arena, snapshot.segment(), engine.segment(), enginePredicate));
         if (scanRes.isErr()) {
