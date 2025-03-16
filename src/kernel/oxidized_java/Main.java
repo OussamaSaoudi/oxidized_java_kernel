@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.Table;
 import io.delta.kernel.data.ColumnVector;
 import io.delta.kernel.data.ColumnarBatch;
@@ -17,22 +19,14 @@ import io.delta.kernel.internal.util.Tuple2;
 import io.delta.kernel.types.StructField;
 import io.delta.kernel.utils.CloseableIterator;
 import io.delta.kernel.utils.FileStatus;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
-import io.micrometer.core.instrument.distribution.HistogramSnapshot;
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import kernel.generated.*;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.apache.commons.pool2.ObjectPool;
-import org.apache.commons.pool2.PooledObjectFactory;
-import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static io.delta.kernel.internal.util.Utils.singletonCloseableIterator;
 
@@ -191,7 +185,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int ITER = 1;
+        int ITER = 10;
         String path = args[0];
         System.out.println("Testing for path:" + path);
         String suite = "both";

@@ -15,7 +15,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 /**
  * {@snippet lang=c :
  * struct FileMeta {
- *     struct KernelStringSlice path;
+ *     struct kernel.oxidized_java.KernelStringSlice path;
  *     int64_t last_modified;
  *     uintptr_t size;
  * }
@@ -45,7 +45,7 @@ public class FileMeta {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice path
+     * struct kernel.oxidized_java.KernelStringSlice path
      * }
      */
     public static final GroupLayout path$layout() {
@@ -57,7 +57,7 @@ public class FileMeta {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice path
+     * struct kernel.oxidized_java.KernelStringSlice path
      * }
      */
     public static final long path$offset() {
@@ -67,7 +67,7 @@ public class FileMeta {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice path
+     * struct kernel.oxidized_java.KernelStringSlice path
      * }
      */
     public static MemorySegment path(MemorySegment struct) {
@@ -77,7 +77,7 @@ public class FileMeta {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice path
+     * struct kernel.oxidized_java.KernelStringSlice path
      * }
      */
     public static void path(MemorySegment struct, MemorySegment fieldValue) {

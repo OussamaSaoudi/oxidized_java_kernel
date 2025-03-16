@@ -50,7 +50,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     VisitBinaryOpFn visit_minus;
  *     VisitBinaryOpFn visit_multiply;
  *     VisitBinaryOpFn visit_divide;
- *     void (*visit_column)(void *, uintptr_t, struct KernelStringSlice);
+ *     void (*visit_column)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice);
  *     void (*visit_struct_expr)(void *, uintptr_t, uintptr_t);
  * }
  * }
@@ -1984,7 +1984,7 @@ public class EngineExpressionVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_column)(void *, uintptr_t, struct KernelStringSlice)
+     * void (*visit_column)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice)
      * }
      */
     public static class visit_column {
@@ -2042,7 +2042,7 @@ public class EngineExpressionVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_column)(void *, uintptr_t, struct KernelStringSlice)
+     * void (*visit_column)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice)
      * }
      */
     public static final AddressLayout visit_column$layout() {
@@ -2054,7 +2054,7 @@ public class EngineExpressionVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_column)(void *, uintptr_t, struct KernelStringSlice)
+     * void (*visit_column)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice)
      * }
      */
     public static final long visit_column$offset() {
@@ -2064,7 +2064,7 @@ public class EngineExpressionVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_column)(void *, uintptr_t, struct KernelStringSlice)
+     * void (*visit_column)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice)
      * }
      */
     public static MemorySegment visit_column(MemorySegment struct) {
@@ -2074,7 +2074,7 @@ public class EngineExpressionVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_column)(void *, uintptr_t, struct KernelStringSlice)
+     * void (*visit_column)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice)
      * }
      */
     public static void visit_column(MemorySegment struct, MemorySegment fieldValue) {

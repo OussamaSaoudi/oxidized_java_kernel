@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef void (*VisitLiteralFnKernelStringSlice)(void *, uintptr_t, struct KernelStringSlice {
+ * typedef void (*VisitLiteralFnKernelStringSlice)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice {
  *     const char *ptr;
  *     uintptr_t len;
  * })

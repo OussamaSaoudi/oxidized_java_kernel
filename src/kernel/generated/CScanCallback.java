@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef void (*CScanCallback)(NullableCvoid, struct KernelStringSlice {
+ * typedef void (*CScanCallback)(NullableCvoid, struct kernel.oxidized_java.KernelStringSlice {
  *     const char *ptr;
  *     uintptr_t len;
  * }, int64_t, const struct Stats {

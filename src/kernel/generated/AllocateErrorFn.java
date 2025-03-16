@@ -15,8 +15,8 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 /**
  * {@snippet lang=c :
  * typedef struct EngineError {
- *     enum KernelError etype;
- * } *(*AllocateErrorFn)(enum KernelError {
+ *     enum kernel.oxidized_java.KernelError etype;
+ * } *(*AllocateErrorFn)(enum kernel.oxidized_java.KernelError {
  *     UnknownError,
  *     FFIError,
  *     EngineDataTypeError,
@@ -54,7 +54,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  *     ChangeDataFeedUnsupported,
  *     ChangeDataFeedIncompatibleSchema,
  *     InvalidCheckpoint
- * }, struct KernelStringSlice {
+ * }, struct kernel.oxidized_java.KernelStringSlice {
  *     const char *ptr;
  *     uintptr_t len;
  * })

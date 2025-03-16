@@ -15,7 +15,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 /**
  * {@snippet lang=c :
  * struct EngineError {
- *     enum KernelError etype;
+ *     enum kernel.oxidized_java.KernelError etype;
  * }
  * }
  */
@@ -41,7 +41,7 @@ public class EngineError {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * enum KernelError etype
+     * enum kernel.oxidized_java.KernelError etype
      * }
      */
     public static final OfInt etype$layout() {
@@ -53,7 +53,7 @@ public class EngineError {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * enum KernelError etype
+     * enum kernel.oxidized_java.KernelError etype
      * }
      */
     public static final long etype$offset() {
@@ -63,7 +63,7 @@ public class EngineError {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * enum KernelError etype
+     * enum kernel.oxidized_java.KernelError etype
      * }
      */
     public static int etype(MemorySegment struct) {
@@ -73,7 +73,7 @@ public class EngineError {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * enum KernelError etype
+     * enum kernel.oxidized_java.KernelError etype
      * }
      */
     public static void etype(MemorySegment struct, int fieldValue) {

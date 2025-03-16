@@ -1,5 +1,5 @@
-import io.delta.kernel.engine.Engine;
-import kernel.generated.KernelBoolSlice;
+package kernel.oxidized_java;
+
 import kernel.generated.delta_kernel_ffi_h;
 
 import java.lang.foreign.*;

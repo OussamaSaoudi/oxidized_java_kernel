@@ -1,13 +1,12 @@
-import io.delta.kernel.data.FilteredColumnarBatch;
+package kernel.oxidized_java;
+
 import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.ExternResultbool;
 import kernel.generated.kernel_scan_data_next$engine_visitor;
-import org.apache.commons.pool2.impl.GenericObjectPool;
 
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
-import java.util.Iterator;
 
 import static kernel.generated.delta_kernel_ffi_h.*;
 

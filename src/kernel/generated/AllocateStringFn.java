@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef NullableCvoid (*AllocateStringFn)(struct KernelStringSlice {
+ * typedef NullableCvoid (*AllocateStringFn)(struct kernel.oxidized_java.KernelStringSlice {
  *     const char *ptr;
  *     uintptr_t len;
  * })

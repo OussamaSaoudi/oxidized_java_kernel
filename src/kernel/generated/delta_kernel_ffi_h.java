@@ -72,7 +72,7 @@ public class delta_kernel_ffi_h {
     private static final int UnknownError_ = (int)0L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.UnknownError = 0
+     * enum kernel.oxidized_java.KernelError.UnknownError = 0
      * }
      */
     public static int UnknownError_() {
@@ -81,7 +81,7 @@ public class delta_kernel_ffi_h {
     private static final int FFIError = (int)1L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.FFIError = 1
+     * enum kernel.oxidized_java.KernelError.FFIError = 1
      * }
      */
     public static int FFIError() {
@@ -90,7 +90,7 @@ public class delta_kernel_ffi_h {
     private static final int EngineDataTypeError = (int)2L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.EngineDataTypeError = 2
+     * enum kernel.oxidized_java.KernelError.EngineDataTypeError = 2
      * }
      */
     public static int EngineDataTypeError() {
@@ -99,7 +99,7 @@ public class delta_kernel_ffi_h {
     private static final int ExtractError = (int)3L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.ExtractError = 3
+     * enum kernel.oxidized_java.KernelError.ExtractError = 3
      * }
      */
     public static int ExtractError() {
@@ -108,7 +108,7 @@ public class delta_kernel_ffi_h {
     private static final int GenericError = (int)4L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.GenericError = 4
+     * enum kernel.oxidized_java.KernelError.GenericError = 4
      * }
      */
     public static int GenericError() {
@@ -117,7 +117,7 @@ public class delta_kernel_ffi_h {
     private static final int IOErrorError = (int)5L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.IOErrorError = 5
+     * enum kernel.oxidized_java.KernelError.IOErrorError = 5
      * }
      */
     public static int IOErrorError() {
@@ -126,7 +126,7 @@ public class delta_kernel_ffi_h {
     private static final int FileNotFoundError = (int)6L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.FileNotFoundError = 6
+     * enum kernel.oxidized_java.KernelError.FileNotFoundError = 6
      * }
      */
     public static int FileNotFoundError() {
@@ -135,7 +135,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingColumnError = (int)7L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingColumnError = 7
+     * enum kernel.oxidized_java.KernelError.MissingColumnError = 7
      * }
      */
     public static int MissingColumnError() {
@@ -144,7 +144,7 @@ public class delta_kernel_ffi_h {
     private static final int UnexpectedColumnTypeError = (int)8L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.UnexpectedColumnTypeError = 8
+     * enum kernel.oxidized_java.KernelError.UnexpectedColumnTypeError = 8
      * }
      */
     public static int UnexpectedColumnTypeError() {
@@ -153,7 +153,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingDataError = (int)9L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingDataError = 9
+     * enum kernel.oxidized_java.KernelError.MissingDataError = 9
      * }
      */
     public static int MissingDataError() {
@@ -162,7 +162,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingVersionError = (int)10L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingVersionError = 10
+     * enum kernel.oxidized_java.KernelError.MissingVersionError = 10
      * }
      */
     public static int MissingVersionError() {
@@ -171,7 +171,7 @@ public class delta_kernel_ffi_h {
     private static final int DeletionVectorError = (int)11L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.DeletionVectorError = 11
+     * enum kernel.oxidized_java.KernelError.DeletionVectorError = 11
      * }
      */
     public static int DeletionVectorError() {
@@ -180,7 +180,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidUrlError = (int)12L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidUrlError = 12
+     * enum kernel.oxidized_java.KernelError.InvalidUrlError = 12
      * }
      */
     public static int InvalidUrlError() {
@@ -189,7 +189,7 @@ public class delta_kernel_ffi_h {
     private static final int MalformedJsonError = (int)13L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MalformedJsonError = 13
+     * enum kernel.oxidized_java.KernelError.MalformedJsonError = 13
      * }
      */
     public static int MalformedJsonError() {
@@ -198,7 +198,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingMetadataError = (int)14L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingMetadataError = 14
+     * enum kernel.oxidized_java.KernelError.MissingMetadataError = 14
      * }
      */
     public static int MissingMetadataError() {
@@ -207,7 +207,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingProtocolError = (int)15L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingProtocolError = 15
+     * enum kernel.oxidized_java.KernelError.MissingProtocolError = 15
      * }
      */
     public static int MissingProtocolError() {
@@ -216,7 +216,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidProtocolError = (int)16L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidProtocolError = 16
+     * enum kernel.oxidized_java.KernelError.InvalidProtocolError = 16
      * }
      */
     public static int InvalidProtocolError() {
@@ -225,7 +225,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingMetadataAndProtocolError = (int)17L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingMetadataAndProtocolError = 17
+     * enum kernel.oxidized_java.KernelError.MissingMetadataAndProtocolError = 17
      * }
      */
     public static int MissingMetadataAndProtocolError() {
@@ -234,7 +234,7 @@ public class delta_kernel_ffi_h {
     private static final int ParseError = (int)18L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.ParseError = 18
+     * enum kernel.oxidized_java.KernelError.ParseError = 18
      * }
      */
     public static int ParseError() {
@@ -243,7 +243,7 @@ public class delta_kernel_ffi_h {
     private static final int JoinFailureError = (int)19L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.JoinFailureError = 19
+     * enum kernel.oxidized_java.KernelError.JoinFailureError = 19
      * }
      */
     public static int JoinFailureError() {
@@ -252,7 +252,7 @@ public class delta_kernel_ffi_h {
     private static final int Utf8Error = (int)20L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.Utf8Error = 20
+     * enum kernel.oxidized_java.KernelError.Utf8Error = 20
      * }
      */
     public static int Utf8Error() {
@@ -261,7 +261,7 @@ public class delta_kernel_ffi_h {
     private static final int ParseIntError = (int)21L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.ParseIntError = 21
+     * enum kernel.oxidized_java.KernelError.ParseIntError = 21
      * }
      */
     public static int ParseIntError() {
@@ -270,7 +270,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidColumnMappingModeError = (int)22L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidColumnMappingModeError = 22
+     * enum kernel.oxidized_java.KernelError.InvalidColumnMappingModeError = 22
      * }
      */
     public static int InvalidColumnMappingModeError() {
@@ -279,7 +279,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidTableLocationError = (int)23L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidTableLocationError = 23
+     * enum kernel.oxidized_java.KernelError.InvalidTableLocationError = 23
      * }
      */
     public static int InvalidTableLocationError() {
@@ -288,7 +288,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidDecimalError = (int)24L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidDecimalError = 24
+     * enum kernel.oxidized_java.KernelError.InvalidDecimalError = 24
      * }
      */
     public static int InvalidDecimalError() {
@@ -297,7 +297,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidStructDataError = (int)25L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidStructDataError = 25
+     * enum kernel.oxidized_java.KernelError.InvalidStructDataError = 25
      * }
      */
     public static int InvalidStructDataError() {
@@ -306,7 +306,7 @@ public class delta_kernel_ffi_h {
     private static final int InternalError_ = (int)26L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InternalError = 26
+     * enum kernel.oxidized_java.KernelError.InternalError = 26
      * }
      */
     public static int InternalError_() {
@@ -315,7 +315,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidExpression = (int)27L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidExpression = 27
+     * enum kernel.oxidized_java.KernelError.InvalidExpression = 27
      * }
      */
     public static int InvalidExpression() {
@@ -324,7 +324,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidLogPath = (int)28L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidLogPath = 28
+     * enum kernel.oxidized_java.KernelError.InvalidLogPath = 28
      * }
      */
     public static int InvalidLogPath() {
@@ -333,7 +333,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidCommitInfo = (int)29L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidCommitInfo = 29
+     * enum kernel.oxidized_java.KernelError.InvalidCommitInfo = 29
      * }
      */
     public static int InvalidCommitInfo() {
@@ -342,7 +342,7 @@ public class delta_kernel_ffi_h {
     private static final int FileAlreadyExists = (int)30L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.FileAlreadyExists = 30
+     * enum kernel.oxidized_java.KernelError.FileAlreadyExists = 30
      * }
      */
     public static int FileAlreadyExists() {
@@ -351,7 +351,7 @@ public class delta_kernel_ffi_h {
     private static final int MissingCommitInfo = (int)31L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.MissingCommitInfo = 31
+     * enum kernel.oxidized_java.KernelError.MissingCommitInfo = 31
      * }
      */
     public static int MissingCommitInfo() {
@@ -360,7 +360,7 @@ public class delta_kernel_ffi_h {
     private static final int UnsupportedError = (int)32L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.UnsupportedError = 32
+     * enum kernel.oxidized_java.KernelError.UnsupportedError = 32
      * }
      */
     public static int UnsupportedError() {
@@ -369,7 +369,7 @@ public class delta_kernel_ffi_h {
     private static final int ParseIntervalError = (int)33L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.ParseIntervalError = 33
+     * enum kernel.oxidized_java.KernelError.ParseIntervalError = 33
      * }
      */
     public static int ParseIntervalError() {
@@ -378,7 +378,7 @@ public class delta_kernel_ffi_h {
     private static final int ChangeDataFeedUnsupported = (int)34L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.ChangeDataFeedUnsupported = 34
+     * enum kernel.oxidized_java.KernelError.ChangeDataFeedUnsupported = 34
      * }
      */
     public static int ChangeDataFeedUnsupported() {
@@ -387,7 +387,7 @@ public class delta_kernel_ffi_h {
     private static final int ChangeDataFeedIncompatibleSchema = (int)35L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.ChangeDataFeedIncompatibleSchema = 35
+     * enum kernel.oxidized_java.KernelError.ChangeDataFeedIncompatibleSchema = 35
      * }
      */
     public static int ChangeDataFeedIncompatibleSchema() {
@@ -396,7 +396,7 @@ public class delta_kernel_ffi_h {
     private static final int InvalidCheckpoint = (int)36L;
     /**
      * {@snippet lang=c :
-     * enum KernelError.InvalidCheckpoint = 36
+     * enum kernel.oxidized_java.KernelError.InvalidCheckpoint = 36
      * }
      */
     public static int InvalidCheckpoint() {
@@ -991,7 +991,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * struct ExternResultHandleSharedSnapshot snapshot(struct KernelStringSlice path, HandleSharedExternEngine engine)
+     * struct ExternResultHandleSharedSnapshot snapshot(struct kernel.oxidized_java.KernelStringSlice path, HandleSharedExternEngine engine)
      * }
      */
     public static FunctionDescriptor snapshot$descriptor() {
@@ -1001,7 +1001,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * struct ExternResultHandleSharedSnapshot snapshot(struct KernelStringSlice path, HandleSharedExternEngine engine)
+     * struct ExternResultHandleSharedSnapshot snapshot(struct kernel.oxidized_java.KernelStringSlice path, HandleSharedExternEngine engine)
      * }
      */
     public static MethodHandle snapshot$handle() {
@@ -1011,7 +1011,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * struct ExternResultHandleSharedSnapshot snapshot(struct KernelStringSlice path, HandleSharedExternEngine engine)
+     * struct ExternResultHandleSharedSnapshot snapshot(struct kernel.oxidized_java.KernelStringSlice path, HandleSharedExternEngine engine)
      * }
      */
     public static MemorySegment snapshot$address() {
@@ -1020,7 +1020,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * struct ExternResultHandleSharedSnapshot snapshot(struct KernelStringSlice path, HandleSharedExternEngine engine)
+     * struct ExternResultHandleSharedSnapshot snapshot(struct kernel.oxidized_java.KernelStringSlice path, HandleSharedExternEngine engine)
      * }
      */
     public static MemorySegment snapshot(SegmentAllocator allocator, MemorySegment path, MemorySegment engine) {
@@ -1225,7 +1225,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct KernelStringSlice))
+     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct kernel.oxidized_java.KernelStringSlice))
      * }
      */
     public static FunctionDescriptor string_slice_next$descriptor() {
@@ -1235,7 +1235,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct KernelStringSlice))
+     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct kernel.oxidized_java.KernelStringSlice))
      * }
      */
     public static MethodHandle string_slice_next$handle() {
@@ -1245,7 +1245,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct KernelStringSlice))
+     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct kernel.oxidized_java.KernelStringSlice))
      * }
      */
     public static MemorySegment string_slice_next$address() {
@@ -1254,7 +1254,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct KernelStringSlice))
+     * bool string_slice_next(HandleStringSliceIterator data, NullableCvoid engine_context, void (*engine_visitor)(NullableCvoid, struct kernel.oxidized_java.KernelStringSlice))
      * }
      */
     public static boolean string_slice_next(MemorySegment data, MemorySegment engine_context, MemorySegment engine_visitor) {
@@ -1994,7 +1994,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct KernelStringSlice name, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice name, AllocateErrorFn allocate_error)
      * }
      */
     public static FunctionDescriptor visit_expression_column$descriptor() {
@@ -2004,7 +2004,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct KernelStringSlice name, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice name, AllocateErrorFn allocate_error)
      * }
      */
     public static MethodHandle visit_expression_column$handle() {
@@ -2014,7 +2014,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct KernelStringSlice name, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice name, AllocateErrorFn allocate_error)
      * }
      */
     public static MemorySegment visit_expression_column$address() {
@@ -2023,7 +2023,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct KernelStringSlice name, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_column(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice name, AllocateErrorFn allocate_error)
      * }
      */
     public static MemorySegment visit_expression_column(SegmentAllocator allocator, MemorySegment state, MemorySegment name, MemorySegment allocate_error) {
@@ -2172,7 +2172,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct KernelStringSlice value, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice value, AllocateErrorFn allocate_error)
      * }
      */
     public static FunctionDescriptor visit_expression_literal_string$descriptor() {
@@ -2182,7 +2182,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct KernelStringSlice value, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice value, AllocateErrorFn allocate_error)
      * }
      */
     public static MethodHandle visit_expression_literal_string$handle() {
@@ -2192,7 +2192,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct KernelStringSlice value, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice value, AllocateErrorFn allocate_error)
      * }
      */
     public static MemorySegment visit_expression_literal_string$address() {
@@ -2201,7 +2201,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct KernelStringSlice value, AllocateErrorFn allocate_error)
+     * struct ExternResultusize visit_expression_literal_string(struct KernelExpressionVisitorState *state, struct kernel.oxidized_java.KernelStringSlice value, AllocateErrorFn allocate_error)
      * }
      */
     public static MemorySegment visit_expression_literal_string(SegmentAllocator allocator, MemorySegment state, MemorySegment value, MemorySegment allocate_error) {
@@ -2764,7 +2764,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * struct ExternResultEngineBuilder get_engine_builder(KernelStringSlice path, AllocateErrorFn allocate_error)
+     * struct ExternResultEngineBuilder get_engine_builder(kernel.oxidized_java.KernelStringSlice path, AllocateErrorFn allocate_error)
      * }
      */
     public static FunctionDescriptor get_engine_builder$descriptor() {
@@ -2774,7 +2774,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * struct ExternResultEngineBuilder get_engine_builder(KernelStringSlice path, AllocateErrorFn allocate_error)
+     * struct ExternResultEngineBuilder get_engine_builder(kernel.oxidized_java.KernelStringSlice path, AllocateErrorFn allocate_error)
      * }
      */
     public static MethodHandle get_engine_builder$handle() {
@@ -2784,7 +2784,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * struct ExternResultEngineBuilder get_engine_builder(KernelStringSlice path, AllocateErrorFn allocate_error)
+     * struct ExternResultEngineBuilder get_engine_builder(kernel.oxidized_java.KernelStringSlice path, AllocateErrorFn allocate_error)
      * }
      */
     public static MemorySegment get_engine_builder$address() {
@@ -2793,7 +2793,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * struct ExternResultEngineBuilder get_engine_builder(KernelStringSlice path, AllocateErrorFn allocate_error)
+     * struct ExternResultEngineBuilder get_engine_builder(kernel.oxidized_java.KernelStringSlice path, AllocateErrorFn allocate_error)
      * }
      */
     public static MemorySegment get_engine_builder(SegmentAllocator segmentAllocator, MemorySegment path, MemorySegment allocate_error) {
@@ -3705,7 +3705,7 @@ public class delta_kernel_ffi_h {
     /**
      * Function descriptor for:
      * {@snippet lang=c :
-     * NullableCvoid get_from_map(const struct CStringMap *map, struct KernelStringSlice key, AllocateStringFn allocate_fn)
+     * NullableCvoid get_from_map(const struct CStringMap *map, struct kernel.oxidized_java.KernelStringSlice key, AllocateStringFn allocate_fn)
      * }
      */
     public static FunctionDescriptor get_from_map$descriptor() {
@@ -3715,7 +3715,7 @@ public class delta_kernel_ffi_h {
     /**
      * Downcall method handle for:
      * {@snippet lang=c :
-     * NullableCvoid get_from_map(const struct CStringMap *map, struct KernelStringSlice key, AllocateStringFn allocate_fn)
+     * NullableCvoid get_from_map(const struct CStringMap *map, struct kernel.oxidized_java.KernelStringSlice key, AllocateStringFn allocate_fn)
      * }
      */
     public static MethodHandle get_from_map$handle() {
@@ -3725,7 +3725,7 @@ public class delta_kernel_ffi_h {
     /**
      * Address for:
      * {@snippet lang=c :
-     * NullableCvoid get_from_map(const struct CStringMap *map, struct KernelStringSlice key, AllocateStringFn allocate_fn)
+     * NullableCvoid get_from_map(const struct CStringMap *map, struct kernel.oxidized_java.KernelStringSlice key, AllocateStringFn allocate_fn)
      * }
      */
     public static MemorySegment get_from_map$address() {
@@ -3734,7 +3734,7 @@ public class delta_kernel_ffi_h {
 
     /**
      * {@snippet lang=c :
-     * NullableCvoid get_from_map(const struct CStringMap *map, struct KernelStringSlice key, AllocateStringFn allocate_fn)
+     * NullableCvoid get_from_map(const struct CStringMap *map, struct kernel.oxidized_java.KernelStringSlice key, AllocateStringFn allocate_fn)
      * }
      */
     public static MemorySegment get_from_map(MemorySegment map, MemorySegment key, MemorySegment allocate_fn) {

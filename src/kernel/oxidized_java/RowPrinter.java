@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.data.Row;
 import io.delta.kernel.types.*;
 

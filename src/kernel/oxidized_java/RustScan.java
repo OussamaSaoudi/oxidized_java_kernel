@@ -1,5 +1,5 @@
-import io.delta.kernel.Scan;
-import io.delta.kernel.data.FilteredColumnarBatch;
+package kernel.oxidized_java;
+
 import io.delta.kernel.data.Row;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.expressions.Predicate;
@@ -45,7 +45,7 @@ public class RustScan {
 
     public CloseableIterator<RustScanFileRow> getScanFiles(Engine engine) {
         if (!(engine instanceof  RustEngine)) {
-            throw new RuntimeException("RustScan only supports Rust Engine");
+            throw new RuntimeException("kernel.oxidized_java.RustScan only supports Rust Engine");
         }
         return new RustScanFileIter(arena, (RustEngine) engine, this, snapshot.tableRoot(), snapshot);
     }

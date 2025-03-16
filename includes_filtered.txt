@@ -161,7 +161,7 @@
 --include-struct KernelBoolSlice                                     # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
 --include-struct KernelExpressionVisitorState                        # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
 --include-struct KernelRowIndexArray                                 # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
---include-struct KernelStringSlice                                   # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
+--include-struct kernel.oxidized_java.KernelStringSlice                                   # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
 --include-struct SharedExpression                                    # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
 --include-struct SharedExternEngine                                  # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h
 --include-struct SharedGlobalScanState                               # header: /Users/oussama.saoudi/oxidized_java_kernel/delta-kernel-rs/target/ffi-headers/./delta_kernel_ffi.h

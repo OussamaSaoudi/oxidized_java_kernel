@@ -1,16 +1,14 @@
-import io.delta.kernel.data.FilteredColumnarBatch;
+package kernel.oxidized_java;
+
 import io.delta.kernel.defaults.engine.DefaultEngine;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.types.StructType;
-import io.delta.kernel.utils.CloseableIterator;
 import kernel.generated.KernelStringSlice;
 import kernel.generated.delta_kernel_ffi_h;
 import org.apache.hadoop.conf.Configuration;
 
-import java.io.IOException;
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
