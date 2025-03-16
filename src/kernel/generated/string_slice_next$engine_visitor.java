@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * void (*engine_visitor)(NullableCvoid, struct KernelStringSlice)
+ * void (*engine_visitor)(NullableCvoid, struct kernel.oxidized_java.KernelStringSlice)
  * }
  */
 public class string_slice_next$engine_visitor {

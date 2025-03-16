@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

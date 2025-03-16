@@ -1,11 +1,9 @@
-import kernel.generated.ExternResultEngineBuilder;
-import kernel.generated.ExternResultHandleSharedExternEngine;
+package kernel.oxidized_java;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 
 import static kernel.generated.delta_kernel_ffi_h.*;
-import static kernel.generated.delta_kernel_ffi_h.ErrHandleSharedExternEngine;
 
 public class RustEngineBuilder {
     private final MemorySegment segment;

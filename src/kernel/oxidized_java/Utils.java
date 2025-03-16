@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import kernel.generated.AllocateErrorFn;
 import kernel.generated.AllocateStringFn;
 import kernel.generated.KernelStringSlice;

@@ -1,10 +1,9 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.expressions.*;
-import io.delta.kernel.types.DataType;
-import kernel.generated.AllocateErrorFn;
 import kernel.generated.EngineExpressionVisitor;
 import kernel.generated.KernelStringSlice;
 import kernel.generated.delta_kernel_ffi_h;
-import org.apache.commons.pool.ObjectPool;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
@@ -14,8 +13,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static kernel.generated.delta_kernel_ffi_h.visit_expression;
 
 public class ExpressionVisitor {
     MemorySegment expressionVisitor;
@@ -237,7 +234,7 @@ public class ExpressionVisitor {
             expressionLists.get(sibling_list_id).add(Literal.ofDouble(value));
         }
 //        /// Visit a `string` belonging to the list identified by `sibling_list_id`.
-//        pub visit_literal_string: VisitLiteralFn<KernelStringSlice>,
+//        pub visit_literal_string: VisitLiteralFn<kernel.oxidized_java.KernelStringSlice>,
 
         void visit_literal_string(MemorySegment _data, long sibling_list_id, MemorySegment kernelString) {
             var strPtr = KernelStringSlice.ptr(kernelString);
@@ -416,7 +413,7 @@ public class ExpressionVisitor {
 //        pub visit_divide: VisitBinaryOpFn,
 //        /// Visits the `column` belonging to the list identified by `sibling_list_id`.
 //        pub visit_column:
-//        extern "C" fn(data: *mut c_void, sibling_list_id: usize, name: KernelStringSlice),
+//        extern "C" fn(data: *mut c_void, sibling_list_id: usize, name: kernel.oxidized_java.KernelStringSlice),
         void visit_column(MemorySegment _data, long sibling_list_id, MemorySegment name) {
             var strPtr = KernelStringSlice.ptr(name);
             var jMsg = strPtr.getString(0);

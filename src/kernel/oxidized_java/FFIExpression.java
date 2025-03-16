@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import kernel.generated.EnginePredicate;
 import kernel.generated.delta_kernel_ffi_h;
 

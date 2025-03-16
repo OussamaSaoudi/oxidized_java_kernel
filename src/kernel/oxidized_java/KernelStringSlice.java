@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import kernel.generated.delta_kernel_ffi_h;
 
 import java.lang.foreign.*;
@@ -13,7 +15,7 @@ public class KernelStringSlice {
     private static final GroupLayout LAYOUT = MemoryLayout.structLayout(
             delta_kernel_ffi_h.C_POINTER.withName("ptr"),
             delta_kernel_ffi_h.C_LONG.withName("len")
-    ).withName("KernelStringSlice");
+    ).withName("kernel.oxidized_java.KernelStringSlice");
     private static final AddressLayout ptr$LAYOUT = (AddressLayout) LAYOUT.select(groupElement("ptr"));
     private static final long ptr$OFFSET = 0;
     private static final ValueLayout.OfLong len$LAYOUT = (ValueLayout.OfLong) LAYOUT.select(groupElement("len"));
@@ -27,7 +29,7 @@ public class KernelStringSlice {
     }
 
     private final MemorySegment segment;
-    /** The arena associated with this KernelStringSlice MemorySegment */
+    /** The arena associated with this kernel.oxidized_java.KernelStringSlice MemorySegment */
     private final Arena arena;
 
     public KernelStringSlice(MemorySegment segment) {

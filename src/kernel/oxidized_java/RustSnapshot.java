@@ -1,8 +1,9 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.ScanBuilder;
 import io.delta.kernel.Snapshot;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.types.StructType;
-import kernel.generated.AllocateStringFn;
 import kernel.generated.delta_kernel_ffi_h;
 
 import java.lang.foreign.*;

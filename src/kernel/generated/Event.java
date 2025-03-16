@@ -15,11 +15,11 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 /**
  * {@snippet lang=c :
  * struct Event {
- *     struct KernelStringSlice message;
+ *     struct kernel.oxidized_java.KernelStringSlice message;
  *     enum Level level;
- *     struct KernelStringSlice target;
+ *     struct kernel.oxidized_java.KernelStringSlice target;
  *     uint32_t line;
- *     struct KernelStringSlice file;
+ *     struct kernel.oxidized_java.KernelStringSlice file;
  * }
  * }
  */
@@ -51,7 +51,7 @@ public class Event {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice message
+     * struct kernel.oxidized_java.KernelStringSlice message
      * }
      */
     public static final GroupLayout message$layout() {
@@ -63,7 +63,7 @@ public class Event {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice message
+     * struct kernel.oxidized_java.KernelStringSlice message
      * }
      */
     public static final long message$offset() {
@@ -73,7 +73,7 @@ public class Event {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice message
+     * struct kernel.oxidized_java.KernelStringSlice message
      * }
      */
     public static MemorySegment message(MemorySegment struct) {
@@ -83,7 +83,7 @@ public class Event {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice message
+     * struct kernel.oxidized_java.KernelStringSlice message
      * }
      */
     public static void message(MemorySegment struct, MemorySegment fieldValue) {
@@ -139,7 +139,7 @@ public class Event {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice target
+     * struct kernel.oxidized_java.KernelStringSlice target
      * }
      */
     public static final GroupLayout target$layout() {
@@ -151,7 +151,7 @@ public class Event {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice target
+     * struct kernel.oxidized_java.KernelStringSlice target
      * }
      */
     public static final long target$offset() {
@@ -161,7 +161,7 @@ public class Event {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice target
+     * struct kernel.oxidized_java.KernelStringSlice target
      * }
      */
     public static MemorySegment target(MemorySegment struct) {
@@ -171,7 +171,7 @@ public class Event {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice target
+     * struct kernel.oxidized_java.KernelStringSlice target
      * }
      */
     public static void target(MemorySegment struct, MemorySegment fieldValue) {
@@ -227,7 +227,7 @@ public class Event {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice file
+     * struct kernel.oxidized_java.KernelStringSlice file
      * }
      */
     public static final GroupLayout file$layout() {
@@ -239,7 +239,7 @@ public class Event {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice file
+     * struct kernel.oxidized_java.KernelStringSlice file
      * }
      */
     public static final long file$offset() {
@@ -249,7 +249,7 @@ public class Event {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice file
+     * struct kernel.oxidized_java.KernelStringSlice file
      * }
      */
     public static MemorySegment file(MemorySegment struct) {
@@ -259,7 +259,7 @@ public class Event {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * struct KernelStringSlice file
+     * struct kernel.oxidized_java.KernelStringSlice file
      * }
      */
     public static void file(MemorySegment struct, MemorySegment fieldValue) {

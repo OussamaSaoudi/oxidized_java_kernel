@@ -1,11 +1,11 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.data.ColumnVector;
 import io.delta.kernel.data.ColumnarBatch;
 import io.delta.kernel.data.FilteredColumnarBatch;
 import io.delta.kernel.defaults.engine.DefaultEngine;
 import io.delta.kernel.engine.Engine;
 import io.delta.kernel.expressions.Expression;
-import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
-import io.delta.kernel.internal.data.GenericRow;
 import io.delta.kernel.internal.data.SelectionColumnVector;
 import io.delta.kernel.internal.deletionvectors.RoaringBitmapArray;
 import io.delta.kernel.internal.util.PartitionUtils;
@@ -14,14 +14,11 @@ import io.delta.kernel.utils.CloseableIterator;
 import io.delta.kernel.utils.FileStatus;
 import kernel.generated.*;
 import kernel.generated.KernelStringSlice;
-import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
 import java.lang.foreign.*;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static io.delta.kernel.internal.util.Utils.singletonCloseableIterator;

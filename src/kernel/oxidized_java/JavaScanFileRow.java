@@ -1,4 +1,5 @@
-import io.delta.kernel.expressions.Expression;
+package kernel.oxidized_java;
+
 import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
 
 import java.util.Map;

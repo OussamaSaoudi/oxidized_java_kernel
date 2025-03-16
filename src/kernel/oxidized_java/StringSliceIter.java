@@ -1,8 +1,9 @@
+package kernel.oxidized_java;
+
 import kernel.generated.KernelStringSlice;
 
 import java.lang.foreign.MemorySegment;
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class StringSliceIter {
     ArrayList<String> list;

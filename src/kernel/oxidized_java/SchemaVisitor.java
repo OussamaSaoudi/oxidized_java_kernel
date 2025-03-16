@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.expressions.*;
 import io.delta.kernel.types.*;
 import kernel.generated.EngineSchemaVisitor;
@@ -170,7 +172,7 @@ public class SchemaVisitor {
             return lstId;
         }
 
-        //     void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
+        //     void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
         void visit_struct(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata, long child_list) {
             var list = fieldLists.get(child_list);
             var strPtr = KernelStringSlice.ptr(name);
@@ -178,7 +180,7 @@ public class SchemaVisitor {
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, new StructType(list), nullable));
         }
 
-        //     void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
+        //     void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
         void visit_array(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata, long child_list) {
             var list = fieldLists.get(child_list).iterator();
             var strPtr = KernelStringSlice.ptr(name);
@@ -186,7 +188,7 @@ public class SchemaVisitor {
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, new ArrayType(list.next()), nullable));
         }
 
-        //     void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
+        //     void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
         void visit_map(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata, long child_list) {
             var list = fieldLists.get(child_list).iterator();
             var strPtr = KernelStringSlice.ptr(name);
@@ -194,92 +196,92 @@ public class SchemaVisitor {
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, new MapType(list.next(), list.next()), nullable));
         }
 
-        //     void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t);
+        //     void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t);
         void visit_decimal(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata, byte precision, byte scale) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, new DecimalType(precision, scale), nullable));
         }
 
-        //     void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_string(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, StringType.STRING, nullable));
         }
 
-        //     void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_long(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, LongType.LONG, nullable));
         }
 
-        //     void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_integer(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, IntegerType.INTEGER, nullable));
         }
 
-        //     void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_short(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, ShortType.SHORT, nullable));
         }
 
-        //     void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_byte(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, ByteType.BYTE, nullable));
         }
 
-        //     void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_float(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, FloatType.FLOAT, nullable));
         }
 
-        //     void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_double(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, DoubleType.DOUBLE, nullable));
         }
 
-        //     void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_boolean(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, BooleanType.BOOLEAN, nullable));
         }
 
-        //     void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_binary(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, BinaryType.BINARY, nullable));
         }
 
-        //     void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_date(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             // Date unsupported on this version of kernel java
-//            var strPtr = KernelStringSlice.ptr(name);
+//            var strPtr = kernel.oxidized_java.KernelStringSlice.ptr(name);
 //            var nameStr = strPtr.getString(0);
 //            fieldLists.get(sibling_list_id).add(new StructField(nameStr, DataType., nullable));
         }
 
-        //     void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_timestamp(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);
             fieldLists.get(sibling_list_id).add(new StructField(nameStr, TimestampType.TIMESTAMP, nullable));
         }
 
-        //     void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+        //     void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
         void visit_timestamp_ntz(MemorySegment _data, long sibling_list_id, MemorySegment name, boolean nullable, MemorySegment metadata) {
             var strPtr = KernelStringSlice.ptr(name);
             var nameStr = strPtr.getString(0);

@@ -1,12 +1,9 @@
+package kernel.oxidized_java;
+
 import kernel.generated.CScanCallback;
-import kernel.generated.KernelStringSlice;
 import kernel.generated.kernel_scan_data_next$engine_visitor;
-import org.apache.commons.pool2.impl.GenericObjectPool;
 
 import java.lang.foreign.*;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.util.ArrayList;
 
 import static kernel.generated.delta_kernel_ffi_h.*;

@@ -1,7 +1,8 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.expressions.Expression;
 import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
 
-import java.util.Map;
 import java.util.Optional;
 
 public class RustScanFileRow {

@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * struct KernelStringSlice {
+ * struct kernel.oxidized_java.KernelStringSlice {
  *     const char *ptr;
  *     uintptr_t len;
  * }
@@ -29,7 +29,7 @@ public class KernelStringSlice {
     private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
         delta_kernel_ffi_h.C_POINTER.withName("ptr"),
         delta_kernel_ffi_h.C_LONG.withName("len")
-    ).withName("KernelStringSlice");
+    ).withName("kernel.oxidized_java.KernelStringSlice");
 
     /**
      * The layout of this struct

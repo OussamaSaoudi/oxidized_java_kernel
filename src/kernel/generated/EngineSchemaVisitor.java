@@ -17,22 +17,22 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
  * struct EngineSchemaVisitor {
  *     void *data;
  *     uintptr_t (*make_field_list)(void *, uintptr_t);
- *     void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
- *     void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
- *     void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
- *     void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t);
- *     void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
- *     void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
+ *     void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
+ *     void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t);
+ *     void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t);
+ *     void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
+ *     void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *);
  * }
  * }
  */
@@ -215,7 +215,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static class visit_struct {
@@ -276,7 +276,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static final AddressLayout visit_struct$layout() {
@@ -288,7 +288,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static final long visit_struct$offset() {
@@ -298,7 +298,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static MemorySegment visit_struct(MemorySegment struct) {
@@ -308,7 +308,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_struct)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_struct)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static void visit_struct(MemorySegment struct, MemorySegment fieldValue) {
@@ -317,7 +317,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static class visit_array {
@@ -378,7 +378,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static final AddressLayout visit_array$layout() {
@@ -390,7 +390,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static final long visit_array$offset() {
@@ -400,7 +400,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static MemorySegment visit_array(MemorySegment struct) {
@@ -410,7 +410,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_array)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_array)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static void visit_array(MemorySegment struct, MemorySegment fieldValue) {
@@ -419,7 +419,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static class visit_map {
@@ -480,7 +480,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static final AddressLayout visit_map$layout() {
@@ -492,7 +492,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static final long visit_map$offset() {
@@ -502,7 +502,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static MemorySegment visit_map(MemorySegment struct) {
@@ -512,7 +512,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_map)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
+     * void (*visit_map)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uintptr_t)
      * }
      */
     public static void visit_map(MemorySegment struct, MemorySegment fieldValue) {
@@ -521,7 +521,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
+     * void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
      * }
      */
     public static class visit_decimal {
@@ -583,7 +583,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
+     * void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
      * }
      */
     public static final AddressLayout visit_decimal$layout() {
@@ -595,7 +595,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
+     * void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
      * }
      */
     public static final long visit_decimal$offset() {
@@ -605,7 +605,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
+     * void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
      * }
      */
     public static MemorySegment visit_decimal(MemorySegment struct) {
@@ -615,7 +615,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_decimal)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
+     * void (*visit_decimal)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *, uint8_t, uint8_t)
      * }
      */
     public static void visit_decimal(MemorySegment struct, MemorySegment fieldValue) {
@@ -624,7 +624,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_string {
@@ -684,7 +684,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_string$layout() {
@@ -696,7 +696,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_string$offset() {
@@ -706,7 +706,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_string(MemorySegment struct) {
@@ -716,7 +716,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_string)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_string)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_string(MemorySegment struct, MemorySegment fieldValue) {
@@ -725,7 +725,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_long {
@@ -785,7 +785,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_long$layout() {
@@ -797,7 +797,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_long$offset() {
@@ -807,7 +807,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_long(MemorySegment struct) {
@@ -817,7 +817,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_long)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_long)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_long(MemorySegment struct, MemorySegment fieldValue) {
@@ -826,7 +826,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_integer {
@@ -886,7 +886,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_integer$layout() {
@@ -898,7 +898,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_integer$offset() {
@@ -908,7 +908,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_integer(MemorySegment struct) {
@@ -918,7 +918,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_integer)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_integer)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_integer(MemorySegment struct, MemorySegment fieldValue) {
@@ -927,7 +927,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_short {
@@ -987,7 +987,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_short$layout() {
@@ -999,7 +999,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_short$offset() {
@@ -1009,7 +1009,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_short(MemorySegment struct) {
@@ -1019,7 +1019,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_short)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_short)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_short(MemorySegment struct, MemorySegment fieldValue) {
@@ -1028,7 +1028,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_byte {
@@ -1088,7 +1088,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_byte$layout() {
@@ -1100,7 +1100,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_byte$offset() {
@@ -1110,7 +1110,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_byte(MemorySegment struct) {
@@ -1120,7 +1120,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_byte)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_byte)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_byte(MemorySegment struct, MemorySegment fieldValue) {
@@ -1129,7 +1129,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_float {
@@ -1189,7 +1189,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_float$layout() {
@@ -1201,7 +1201,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_float$offset() {
@@ -1211,7 +1211,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_float(MemorySegment struct) {
@@ -1221,7 +1221,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_float)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_float)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_float(MemorySegment struct, MemorySegment fieldValue) {
@@ -1230,7 +1230,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_double {
@@ -1290,7 +1290,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_double$layout() {
@@ -1302,7 +1302,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_double$offset() {
@@ -1312,7 +1312,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_double(MemorySegment struct) {
@@ -1322,7 +1322,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_double)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_double)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_double(MemorySegment struct, MemorySegment fieldValue) {
@@ -1331,7 +1331,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_boolean {
@@ -1391,7 +1391,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_boolean$layout() {
@@ -1403,7 +1403,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_boolean$offset() {
@@ -1413,7 +1413,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_boolean(MemorySegment struct) {
@@ -1423,7 +1423,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_boolean)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_boolean)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_boolean(MemorySegment struct, MemorySegment fieldValue) {
@@ -1432,7 +1432,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_binary {
@@ -1492,7 +1492,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_binary$layout() {
@@ -1504,7 +1504,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_binary$offset() {
@@ -1514,7 +1514,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_binary(MemorySegment struct) {
@@ -1524,7 +1524,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_binary)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_binary)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_binary(MemorySegment struct, MemorySegment fieldValue) {
@@ -1533,7 +1533,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_date {
@@ -1593,7 +1593,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_date$layout() {
@@ -1605,7 +1605,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_date$offset() {
@@ -1615,7 +1615,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_date(MemorySegment struct) {
@@ -1625,7 +1625,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_date)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_date)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_date(MemorySegment struct, MemorySegment fieldValue) {
@@ -1634,7 +1634,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_timestamp {
@@ -1694,7 +1694,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_timestamp$layout() {
@@ -1706,7 +1706,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_timestamp$offset() {
@@ -1716,7 +1716,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_timestamp(MemorySegment struct) {
@@ -1726,7 +1726,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_timestamp(MemorySegment struct, MemorySegment fieldValue) {
@@ -1735,7 +1735,7 @@ public class EngineSchemaVisitor {
 
     /**
      * {@snippet lang=c :
-     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static class visit_timestamp_ntz {
@@ -1795,7 +1795,7 @@ public class EngineSchemaVisitor {
     /**
      * Layout for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final AddressLayout visit_timestamp_ntz$layout() {
@@ -1807,7 +1807,7 @@ public class EngineSchemaVisitor {
     /**
      * Offset for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static final long visit_timestamp_ntz$offset() {
@@ -1817,7 +1817,7 @@ public class EngineSchemaVisitor {
     /**
      * Getter for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static MemorySegment visit_timestamp_ntz(MemorySegment struct) {
@@ -1827,7 +1827,7 @@ public class EngineSchemaVisitor {
     /**
      * Setter for field:
      * {@snippet lang=c :
-     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct KernelStringSlice, bool, const struct CStringMap *)
+     * void (*visit_timestamp_ntz)(void *, uintptr_t, struct kernel.oxidized_java.KernelStringSlice, bool, const struct CStringMap *)
      * }
      */
     public static void visit_timestamp_ntz(MemorySegment struct, MemorySegment fieldValue) {

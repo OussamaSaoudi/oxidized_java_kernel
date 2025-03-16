@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import io.delta.kernel.internal.actions.DeletionVectorDescriptor;
 import kernel.generated.delta_kernel_ffi_h;
 
@@ -28,8 +30,8 @@ public class DvVisitor {
     /**
      *
      type DvDescriptorVisitor = extern "C" fn(
-     storageType: KernelStringSlice,
-     pathOrInlineDv: KernelStringSlice,
+     storageType: kernel.oxidized_java.KernelStringSlice,
+     pathOrInlineDv: kernel.oxidized_java.KernelStringSlice,
      offset: Option<&i32>,
      sizeInBytes: i32,
      cardinality: i64,

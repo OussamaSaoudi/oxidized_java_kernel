@@ -15,11 +15,11 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 /**
  * {@snippet lang=c :
  * typedef void (*TracingEventFn)(struct Event {
- *     struct KernelStringSlice message;
+ *     struct kernel.oxidized_java.KernelStringSlice message;
  *     enum Level level;
- *     struct KernelStringSlice target;
+ *     struct kernel.oxidized_java.KernelStringSlice target;
  *     uint32_t line;
- *     struct KernelStringSlice file;
+ *     struct kernel.oxidized_java.KernelStringSlice file;
  * })
  * }
  */

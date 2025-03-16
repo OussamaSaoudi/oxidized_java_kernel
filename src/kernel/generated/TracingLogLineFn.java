@@ -14,7 +14,7 @@ import static java.lang.foreign.MemoryLayout.PathElement.*;
 
 /**
  * {@snippet lang=c :
- * typedef void (*TracingLogLineFn)(struct KernelStringSlice {
+ * typedef void (*TracingLogLineFn)(struct kernel.oxidized_java.KernelStringSlice {
  *     const char *ptr;
  *     uintptr_t len;
  * })

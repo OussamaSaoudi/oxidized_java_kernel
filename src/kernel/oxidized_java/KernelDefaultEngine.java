@@ -1,3 +1,5 @@
+package kernel.oxidized_java;
+
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 
